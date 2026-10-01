@@ -47,7 +47,7 @@ Librea is a single Node process with four runtime dependencies, no build step, a
 
 Editions flavor one codebase per audience: the default `district`, `LIBREA_EDITION=micro`, and `LIBREA_EDITION=alt`. Each has its own vocabulary, onboarding, compliance pack, seed, and starter apps.
 
-## The sovereignty promise, stated precisely
+## The sovereignty promise, as of now
 
 This is the part to hand your IT person, your board, or your lawyer.
 
