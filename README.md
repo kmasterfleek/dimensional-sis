@@ -15,7 +15,7 @@ Two things it does that your current system does not:
 - **It sees the whole child.** Every student is more than a grade point average. Librea keeps the structured record and also the voice: what teachers observed, what the student says about themselves, what families add. You can ask it questions in plain language, like "which fourth graders light up around building things," and get answers from what people actually wrote.
 - **Your staff build their own tools.** A teacher describes the dashboard, page, or assignment they need in a sentence and gets a working web page with its own address. It reads your data, only the parts that person is allowed to see, and never sends a record anywhere.
 
-The honest caveat: today Librea is at the stage where a district's technical team pilots it with synthetic data and decides what it needs before real records go in. The gaps are listed plainly further down. There is no sales call to sit through and no contract; you download it.
+The honest caveat: today Librea is at the stage where a district's technical team pilots it with synthetic data and decides what it needs before real records go in. The gaps are listed further down. There is no sales call to sit through and no contract; you download it.
 
 ## If you are starting a microschool, a pod, or a community school
 
