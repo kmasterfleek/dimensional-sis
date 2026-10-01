@@ -15,7 +15,7 @@ Two things it does that your current system does not:
 - **It sees the whole child.** Every student is more than a grade point average. Librea keeps the structured record and also the voice: what teachers observed, what the student says about themselves, what families add. You can ask it questions in plain language, like "which fourth graders light up around building things," and get answers from what people actually wrote.
 - **Your staff build their own tools.** A teacher describes the dashboard, page, or assignment they need in a sentence and gets a working web page with its own address. It reads your data, only the parts that person is allowed to see, and never sends a record anywhere.
 
-The honest caveat: today Librea is at the stage where a district's technical team pilots it with synthetic data and decides what it needs before real records go in. The gaps are listed further down. There is no sales call to sit through and no contract; you download it.
+The   caveat: today Librea is at the stage where a district's technical team pilots it with synthetic data and decides what it needs before real records go in. The gaps are listed further down. There is no sales call to sit through and no contract; you download it.
 
 ## If you are starting a microschool, a pod, or a community school
 
@@ -37,7 +37,7 @@ A hosted demo with synthetic data is planned so you can click around before inst
 
 ## What Librea is not, yet
 
-It is demo-grade. It has been built and tested with synthetic students, not run in a school. Before a real child's record goes in, a school needs the things listed under "Honest status" below: encrypted disks, HTTPS, single sign-on, and a read audit. None of those are exotic; they are the work of a pilot, and they are why the technical section exists.
+It is demo-grade. It has been built and tested with synthetic students, not run in a school. Before a real child's record goes in, a school needs the things listed under "  status" below: encrypted disks, HTTPS, single sign-on, and a read audit. None of those are exotic; they are the work of a pilot, and they are why the technical section exists.
 
 ---
 
@@ -120,7 +120,7 @@ Five skills under `.claude/skills/` make this concrete:
 | `librea-adopt` | First-run interview: who you are, which edition, what to rename, what to seed. |
 | `librea-import` | Map your own SIS export onto a preset and check the mapping before applying. |
 | `librea-brand` | Your name, colours and vocabulary, as an edition. |
-| `librea-model` | Connect Ollama or Anthropic, and update the sovereignty statement honestly. |
+| `librea-model` | Connect Ollama or Anthropic, and update the sovereignty statement  ly. |
 | `librea-deploy` | Run it on a school server: Docker, env, backups, restore. |
 
 The four adaptations almost everyone makes:
@@ -155,7 +155,7 @@ LIBREA_MODEL=claude-opus-5                  # default Anthropic model
 
 Librea does not hide the cloud tag case. A model whose tag ends in `:cloud` or `-cloud` is reported as `offline: false` with an explicit statement that your prompt reaches Ollama's servers, and that swapping the tag for a local model makes it stop. See `src/vibe/providers.js`.
 
-## Honest status: demo-grade, not yet pilot-grade
+##   status: demo-grade, not yet pilot-grade
 
 Everything below is true of the code as it stands. None of it is hidden in a footnote because a school deserves to know before it puts a child's record in.
 
