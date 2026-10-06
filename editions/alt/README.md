@@ -1,4 +1,4 @@
-# Librea Alt
+# Dimensional SIS Alt
 
 For alternative schools: continuation and credit-recovery programs, independent
 study, charters, therapeutic and day-treatment schools, court and community
@@ -7,11 +7,11 @@ students, grades 6-12 and mostly 9-12, students arriving and leaving all year,
 heavy IEP / 504 / behavior-support work, and two numbers that matter every
 single day: **credits toward a diploma** and **attendance**.
 
-This edition is the same Librea as every other edition. It changes the words
+This edition is the same Dimensional SIS as every other edition. It changes the words
 (teachers are **advisors**, the principal is the **director**, classes are
 **sections**), the starting screens, the compliance checks, and the four apps
 you get on day one. Your data and your ledger are identical in shape to any
-other Librea install, so nothing here locks you in.
+other Dimensional SIS install, so nothing here locks you in.
 
 There are two people this file is written for: the director, who needs to know
 what this does and what it will show an authorizer, and the one technical
@@ -41,7 +41,7 @@ You need Node 20 or newer. Nothing else, and no internet connection after the
 first `npm install`.
 
 ```bash
-git clone <your copy of librea> && cd librea
+git clone https://github.com/kmasterfleek/dimensional-sis && cd dimensional-sis
 npm install
 
 # Look around first, with the demo school (140 synthetic students, no real people):
@@ -114,14 +114,14 @@ can defend and a dashboard you cannot.
 **Requirements vary by state, by authorizer, and by program type.** An
 independent-study attendance claim in California and a seat-time claim in Ohio
 are not the same thing. Use these checks as a working checklist against your own
-rules. **This is not legal advice**, and Librea does not file anything for you.
+rules. **This is not legal advice**, and Dimensional SIS does not file anything for you.
 
 ## Caseload scoping (advisors seeing their own students)
 
-Alternative schools run on caseloads. An advisor should open Librea and see the
+Alternative schools run on caseloads. An advisor should open Dimensional SIS and see the
 twenty-two students who are theirs.
 
-Librea does this. Turn on the `caseload` flag for a staff account and that
+Dimensional SIS does this. Turn on the `caseload` flag for a staff account and that
 account stops seeing the whole school:
 
 ```
@@ -154,7 +154,7 @@ their own student and nothing else.
   home. There is no account to create, no licence to renew, and no vendor who
   can raise the price or shut the service off.
 - The app builder works offline from templates. If you connect a model provider,
-  Librea tells you exactly what would leave the building before it sends
+  Dimensional SIS tells you exactly what would leave the building before it sends
   anything — and you can decline and keep using the templates.
 - Apps run in a sandboxed frame with no network access at all. They read data
   through a broker that enforces the viewer's scope, so an app cannot show a

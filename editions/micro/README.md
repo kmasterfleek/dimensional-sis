@@ -1,4 +1,4 @@
-# Librea Micro
+# Dimensional SIS Micro
 
 For microschools, learning pods, homeschool co-ops, forest schools, and
 parent-run community schools. Five learners or sixty. Mixed ages. A few guides
@@ -6,7 +6,7 @@ instead of a staff hierarchy. Families who are co-owners, not customers. No IT
 department, and usually nothing to import from because you started this
 yourselves.
 
-Librea Micro is the same Librea as every other edition — the same ledger, the
+Dimensional SIS Micro is the same Dimensional SIS as every other edition — the same ledger, the
 same local vectors, the same SQLite projection — wearing your words. It says
 learners and guides and pod and community, because that is what you say. It
 starts from an empty room rather than a vendor export.
@@ -29,7 +29,7 @@ LIBREA_EDITION=micro node editions/micro/seed.js
 LIBREA_EDITION=micro npm start
 ```
 
-Open http://127.0.0.1:3000 and log in as `admin` / `librea-admin`. You are
+Open http://127.0.0.1:4321 and log in as `admin` / `librea-admin`. You are
 looking at Willow Creek Learning Community: 22 invented learners, 15 invented
 families, five guides, a month of attendance, and a compliance checklist that is
 deliberately not all green. Click into a learner. Open the attendance register.
@@ -79,7 +79,7 @@ nothing to import.
 ## What "more than legit" means here
 
 Legit is not a certificate. It is being able to answer the ordinary questions on
-an ordinary Tuesday, without a scramble. Librea Micro keeps a checklist of them:
+an ordinary Tuesday, without a scramble. Dimensional SIS Micro keeps a checklist of them:
 
 - **Who was here?** An attendance register per learner per day, printable.
 - **Who may collect this child?** Emergency contacts and custody or release
@@ -94,7 +94,7 @@ an ordinary Tuesday, without a scramble. Librea Micro keeps a checklist of them:
 - **What is each learner working toward?** An individual learning plan with
   goals and a review date, so reviews get scheduled instead of forgotten.
 - **Are you registered to do this?** In California a private school files an
-  annual affidavit; other states want other things, or nothing. Librea holds the
+  annual affidavit; other states want other things, or nothing. Dimensional SIS holds the
   document and its expiry date whatever it is called where you are.
 - **Enrollment paperwork, consents, residency** — held per learner, with status
   `on-file`, `missing`, `expired`, or `waived`.
@@ -147,7 +147,7 @@ There is no export fee, no locked field, no "contact sales." It is yours in the
 plain sense: it is on your disk.
 
 The one moment data can leave is if you connect a hosted model to the app
-builder. Librea ships with offline templates so you never have to, and it tells
+builder. Dimensional SIS ships with offline templates so you never have to, and it tells
 you on screen when a provider is involved.
 
 ## The four starter apps

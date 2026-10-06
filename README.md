@@ -2,6 +2,14 @@
 
 **A free, open-source student information system that sees the whole child, and keeps every student's data on your school's own machines.**
 
+**Who it's for.** Three kinds of schools, each with its own version of the same problem:
+
+- **Districts and traditional schools** that have an SIS and can't get anything new out of it. Start with [the problem you already know](#the-problem-you-already-know).
+- **Microschools, learning pods, co-ops and community schools** that have no SIS at all, just paperwork. Go to [microschools and learning pods](#for-microschools-and-learning-pods).
+- **Alternative schools** (continuation, credit recovery, independent study, charters, therapeutic programs), whose students the standard SIS reads worst. Go to [alternative schools](#for-alternative-schools).
+
+You can see it working in a public demo with made-up students, with a five-minute guided tour: **https://dimensional-sis-production.up.railway.app**
+
 ## The problem you already know
 
 Your student information system was built for compliance. It takes attendance, stores grades, prints transcripts, and files the state report. It does those things, and it was never designed to do much more.
@@ -55,15 +63,61 @@ Two rules come with that depth:
 
 **Where it stands:** Dimensional SIS has been built and tested with synthetic students, not yet run in a school. The right first step is a pilot by your technical team using sample data. The section "Status" below lists what has to be in place before a real child's record goes in. There is no sales call and no contract; you download it.
 
-## For microschools, pods and community schools
+## For microschools and learning pods
 
-You have twenty kids, a few adults, a dozen families, and a growing pile of paper: attendance, immunizations, emergency cards, consent forms, background checks, drill logs, learning plans. The software built for districts costs more than your rent and assumes an IT department, so it all lives in a spreadsheet and a drawer.
+*Microschools, learning pods, homeschool co-ops, forest schools and parent-run community schools.*
 
-**Dimensional SIS Micro** is the same system in your words: learners, guides, pods, families. You type your community in by hand and invite families and guides with a code. It keeps the records a regulator, an insurer or a careful parent will ask for, and it tells you every day exactly what is missing: "Paloma has no immunization record on file. No lockdown drill in 90 days." Families can see their own child's file and help close the gaps.
+You started this because you wanted children to be known as whole people, not as grades. Then came the paperwork: attendance, immunizations or exemptions, emergency cards, custody and consent forms, proof of residency, background checks, CPR cards, mandated-reporter training, fire and lockdown drill logs, your adult-to-child ratio, learning plans, and, depending on your state, a private-school filing such as California's affidavit. Software built for districts costs more than your rent and assumes an IT department. Homeschool apps are gradebooks. So it lives in a spreadsheet and a drawer, along with a quiet worry about the day a regulator, an insurer or a new family asks to see it.
 
-**Dimensional SIS Alt** does the same for alternative schools: charters, continuation and credit-recovery programs, independent study and therapeutic schools. It uses advisors instead of homeroom teachers, tracks credits toward graduation, keeps plan review dates from slipping, and gives you a weekly list of students who need a call.
+**Dimensional SIS Micro** is built for exactly that.
 
-Requirements vary by state, and Dimensional SIS is a tool, not legal advice.
+- **It speaks your language.** Learners, guides, pods, age bands and families, not students, teachers and grades.
+- **You start from an empty room.** There's nothing to import. A guided setup walks you through your community, learners (a name and birthday is enough), families (siblings entered once), guides and their clearances, the paperwork you hold, and your drills. About twenty minutes of typing for twenty learners.
+- **It tells you every day exactly what is missing,** by name. For example: "Paloma has no immunization record on file." "No lockdown drill in 90 days." "Silas's background check is still pending." The checklist covers:
+  - immunizations
+  - emergency contacts and cards
+  - custody and consent
+  - residency
+  - background checks, mandated-reporter training, and CPR on site
+  - fire and lockdown drills
+  - your stated adult-to-child ratio
+  - a credentialed guide in every pod
+  - an individual plan reviewed each term
+  - your private-school filing
+- **The reports a visitor asks for are ready to print.** Attendance register, enrollment roster, immunization status, staff credentials, learning-plan calendar, incident log and affidavit datasheet, all as plain CSV files.
+- **Families are co-owners, not customers.** They join with an invite code, see their own child's file, add what they see at home, and get a to-do list of what their family still owes the school.
+- **It comes with four tools ready on day one:** an attendance register, a co-op roster, a learner portfolio and a weekly family update. Describe a fifth in a sentence and it gets built.
+- **It keeps the reason you started.** Portfolios, observations, a child's own words and what families notice live in the same record as the compliance paperwork. That's the "dimensional" part, and it's the part no gradebook gives you.
+
+**What it costs:** nothing for the software. It runs on a laptop you already own, set up in about an hour by one parent or guide who is comfortable following instructions. Everything stays on that laptop and leaves with you if you ever stop using it. The step-by-step guide is in [`editions/micro/README.md`](editions/micro/README.md).
+
+## For alternative schools
+
+*Continuation and credit-recovery programs, independent study, charters, therapeutic and day-treatment schools, court and community schools.*
+
+Your students are the ones a standard SIS reads worst. It was built for a comprehensive high school's year, where everyone starts in August, sits in seats and stays. Your students enroll on a Tuesday in March with credits from three schools, an IEP, a job, a younger sibling to get to school, and sometimes a court date. The system reduces them to labels like "chronically absent," "credit deficient" or "behavior." Meanwhile you answer to an authorizer or a county office for apportionment attendance, plan reviews and credits, and you have a fraction of the staff to do it.
+
+**Dimensional SIS Alt** is built around the two numbers that matter to you every day, credits and attendance, and around students who come and go all year.
+
+- **Credits are a first-class number.** Each student's total, how far they are from a diploma, and who is far enough behind that a recovery plan should exist. Credits from earlier schools come in from their transcripts, so a transfer student with 85 credits isn't treated as new.
+- **Attendance counts from the day a student actually enrolled,** so a mid-year arrival doesn't distort their rate. An apportionment (ADA) summary is ready each month.
+- **Plans have review dates that don't slip.** IEP, 504, behavior support, transition and credit recovery, with overdue reviews listed first. Seniors and students 16 or older without a transition plan are named.
+- **Students who drift out don't go quietly.** A weekly list of students to call back, while a phone call still works.
+- **Advisors see their own caseload.** Directors see the whole school.
+- **The record follows a mobile life.** Every enrollment, withdrawal, transfer and re-enrollment is kept with a reason. Import a vendor export, and enroll the student who walked in this morning by hand in about thirty seconds.
+- **Your authorizer's questions are already checks.** Plans reviewed in the last 12 months, a behavior plan after three incidents in 60 days, juniors and seniors on track for credits, transition plans, apportionment attendance complete and coded, plus the core checks on paperwork, clearances and drills.
+- **Four tools come ready:** ADA attendance, a credit tracker, plan reviews and re-engagement.
+
+**This is where seeing in dimensions matters most.** The number on the report says a student's attendance is 80%. The dimensions show *why*, as questions for an adult rather than verdicts:
+- **Journey:** he leaves at 7:01 for two transfers on a route that doesn't feel safe.
+- **In his own words:** he works 20 hours a week.
+- **Voice:** his speech about the six-lane crossing outside school.
+
+That changes the conversation from "why is he absent?" to "what would make his mornings possible?" For the students alternative schools serve, that difference is the job.
+
+**What it costs:** nothing for the software, and one server you control. The guide for directors and for the technical person who will run it is [`editions/alt/README.md`](editions/alt/README.md).
+
+Requirements vary by state, by authorizer and by program type. Dimensional SIS is a working checklist against your own rules, not legal advice, and it doesn't file anything for you.
 
 ## What it takes
 
