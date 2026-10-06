@@ -13,6 +13,9 @@ WORKDIR /app
 
 # Dependencies first, so a source change does not rebuild native modules.
 COPY package.json package-lock.json ./
+# onnxruntime-node's install script tries to fetch a CUDA build on Linux; the
+# CPU build ships in the package, so skip that download.
+ENV ONNXRUNTIME_NODE_INSTALL_CUDA=skip
 RUN npm ci --omit=dev
 
 COPY src ./src
@@ -34,11 +37,14 @@ ENV NODE_ENV=production \
 # that an anonymous volume inherits the node user's ownership; a bind mount from
 # the host keeps the host's ownership, so `chown -R 1000:1000 ./data` there if
 # the container cannot write.
+# docker-compose.yml mounts ./data here. There is no VOLUME line, so hosts that
+# mount their own volume (Railway, Fly, Kubernetes) can build the image as is.
 RUN mkdir -p /data && chown -R node:node /data
-VOLUME ["/data"]
 EXPOSE 4321
 
 # HOST=0.0.0.0 is correct inside a container; put a TLS-terminating reverse
 # proxy in front of the published port. See docs/security.md.
+# A host whose volume is owned by root (Railway) can run as root instead with
+# RAILWAY_RUN_UID=0; on a school server keep the node user.
 USER node
 ENTRYPOINT ["librea-entrypoint"]
