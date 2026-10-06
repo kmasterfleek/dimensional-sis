@@ -239,5 +239,5 @@ export function titleFrom(prompt, max = 60) {
     t = (space > 12 ? cut.slice(0, space) : cut.slice(0, max)).trim();
   }
   t = t.replace(/[\s,;:.!?\-]+$/, '').trim();
-  return t ? t.replace(/^./, (c) => c.toUpperCase()) : 'Librea app';
+  return t ? t.replace(/^./, (c) => c.toUpperCase()) : 'Dimensional SIS app';
 }

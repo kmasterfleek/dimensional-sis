@@ -36,7 +36,7 @@ export async function show({ query }) {
 
   render(h('div',
     h('h1', remix?.app ? t('Remix ') + (remix.app.title || remix.app.slug) : t('Build something')),
-    h('p.lede', 'Describe a tool the way you would describe it to a colleague. Librea writes it against your own data and keeps it here.'),
+    h('p.lede', 'Describe a tool the way you would describe it to a colleague. Dimensional SIS writes it against your own data and keeps it here.'),
     h('div.card',
       h('div.field', h('label', { for: 'prompt' }, t('What do you want?')), prompt),
       h('div.chips', (CHIPS[state.user?.role] || CHIPS.staff).map((c) => h('button', { type: 'button', onclick: () => { prompt.value = c; prompt.focus(); } }, c))),

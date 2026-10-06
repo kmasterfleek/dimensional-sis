@@ -1,4 +1,4 @@
-// Preview and apply: turn a vendor CSV into Librea entities.
+// Preview and apply: turn a vendor CSV into Dimensional SIS entities.
 // Two rules govern everything here.
 //   1. Validate at the boundary. A bad row is skipped with a reason; it never
 //      takes the batch down with it.
@@ -407,7 +407,7 @@ function writeMetrics(ctx, entityId, metrics) {
 }
 
 /**
- * Resolve a vendor user id onto a Librea entity. Students must already exist,
+ * Resolve a vendor user id onto a Dimensional SIS entity. Students must already exist,
  * because a result row for a student nobody imported has nothing to attach to;
  * staff references fall back to the raw id so a teacher column is never lost.
  */

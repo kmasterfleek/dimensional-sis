@@ -1,6 +1,6 @@
 # Editions
 
-One codebase, several flavours. An edition changes what Librea is called, what it calls the people in it, which features are on, which compliance packs apply, how onboarding runs, and what the home page says — without a fork and without a single string hard-coded in `src/`.
+One codebase, several flavours. An edition changes what Dimensional SIS is called, what it calls the people in it, which features are on, which compliance packs apply, how onboarding runs, and what the home page says — without a fork and without a single string hard-coded in `src/`.
 
 ## The mechanism
 
@@ -22,7 +22,7 @@ The district edition, defined inline in `src/core/edition.js`:
 ```js
 {
   id: 'district',
-  name: 'Librea',
+  name: 'Dimensional SIS',
   tagline: 'The student information system you own.',
   audience: 'Public school districts',
   vocabulary: { district, school, student, family, staff, teacher, class, grade, principal },  // each maps to itself
@@ -30,7 +30,7 @@ The district edition, defined inline in `src/core/edition.js`:
   features: { import: true, vibe: true, sql: true, compliance: true, onboarding: true, timeline: true, invites: true },
   compliance: { packs: ['core'] },
   onboarding: { mode: 'import-or-manual', steps: ['organization', 'people', 'families', 'compliance', 'apps'] },
-  theme: { accent: '#3d6b8e', accent2: '#c97b4a', logoText: 'Librea' },
+  theme: { accent: '#3d6b8e', accent2: '#c97b4a', logoText: 'Dimensional SIS' },
   seed: 'data/seed/district.json',
   templates: null,
   copy: {},
@@ -41,7 +41,7 @@ These are the top-level keys an edition may set. Within the merged objects an ed
 
 ## The two editions that ship
 
-### Librea Micro (`editions/micro/`)
+### Dimensional SIS Micro (`editions/micro/`)
 
 For microschools, learning pods, homeschool co-ops, forest schools and parent-run community schools of 5–60 learners.
 
@@ -58,7 +58,7 @@ LIBREA_EDITION=micro node editions/micro/seed.js
 LIBREA_EDITION=micro npm start
 ```
 
-### Librea Alt (`editions/alt/`)
+### Dimensional SIS Alt (`editions/alt/`)
 
 For charters, continuation and credit-recovery programs, independent study, therapeutic and day-treatment schools, court and community schools, and culturally-rooted schools. Tagline: *"Credits, attendance, and the students who came back."*
 
@@ -82,4 +82,4 @@ LIBREA_EDITION=alt npm start
 4. `LIBREA_EDITION=<id> npm start`, then read the home page, the people list, an empty state and an invite. Any word still saying "district" is a page that did not call `t()`.
 5. `npm test` — `tests/onboard.test.js` covers loading, fallback and case-preserving substitution.
 
-Vocabulary caveats worth knowing before you choose words: substitution is textual and matches whole words plus a trailing `s`, so irregular plurals (`child` → `children`) come out wrong, and a word that also appears in an id, a URL or a SQL column should not be renamed in copy that is used to build one. The `librea-brand` skill walks through the rest.
+Vocabulary caveats worth knowing before you choose words: substitution is textual and matches whole words plus a trailing `s`, so irregular plurals (`child` → `children`) come out wrong, and a word that also appears in an id, a URL or a SQL column should not be renamed in copy that is used to build one. The `dimensional-brand` skill walks through the rest.

@@ -115,4 +115,4 @@ Which packs run is the edition's decision (`compliance.packs`), so Micro asks a 
 
 ## Exit
 
-`src/api/routes-export.js` is the third sovereignty check — what survives leaving. Admin can pull the full bundle (`/api/export/bundle.json`), students as CSV with metrics and dims, fragments as CSV with author and visibility, and the raw ledger verbatim. Everything comes out as plain files readable without Librea.
+`src/api/routes-export.js` is the third sovereignty check — what survives leaving. Admin can pull the full bundle (`/api/export/bundle.json`), students as CSV with metrics and dims, fragments as CSV with author and visibility, and the raw ledger verbatim. Everything comes out as plain files readable without Dimensional SIS.

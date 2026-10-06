@@ -1,11 +1,11 @@
 ---
-name: librea-model
-description: Connect a text-generation provider to Librea's app builder — offline templates, Ollama (local or cloud tag), or Anthropic — and update the sovereignty statement to match. Use when someone wants better generated apps, asks "can I use Claude with this", asks what happens to their data when a model is involved, or is deciding between local and hosted models.
+name: dimensional-model
+description: Connect a text-generation provider to Dimensional SIS's app builder — offline templates, Ollama (local or cloud tag), or Anthropic — and update the sovereignty statement to match. Use when someone wants better generated apps, asks "can I use Claude with this", asks what happens to their data when a model is involved, or is deciding between local and hosted models.
 ---
 
 # Connecting a model provider
 
-Librea's app builder has three providers (`src/vibe/providers.js`). Two need no network. Picking one is a sovereignty decision, so state the consequence before changing anything.
+Dimensional SIS's app builder has three providers (`src/vibe/providers.js`). Two need no network. Picking one is a sovereignty decision, so state the consequence before changing anything.
 
 **What is sent, in every case:** the prompt the person typed, the field names and dimension labels from `src/core/schema.js`, the SQL table list for their scope, one fabricated example row (`Avery Example`, `STU-EXAMPLE-0001`), and — on a remix — the previous version of that app's HTML.
 
@@ -34,9 +34,9 @@ ollama serve
 ollama pull qwen2.5-coder:7b
 ```
 
-With a local tag, nothing leaves the machine and Librea says so.
+With a local tag, nothing leaves the machine and Dimensional SIS says so.
 
-**Cloud tags are different and Librea does not hide it.** A model whose tag ends in `:cloud` or `-cloud` runs on Ollama's servers, reached through the local daemon. `providerInfo()` reports `offline: false` and the UI states that your prompt and the field shapes go to Ollama, and that swapping the tag for a local model makes it stop. If someone chooses a cloud tag, make sure they know that before you set it.
+**Cloud tags are different and Dimensional SIS does not hide it.** A model whose tag ends in `:cloud` or `-cloud` runs on Ollama's servers, reached through the local daemon. `providerInfo()` reports `offline: false` and the UI states that your prompt and the field shapes go to Ollama, and that swapping the tag for a local model makes it stop. If someone chooses a cloud tag, make sure they know that before you set it.
 
 ### `anthropic` — Claude writes the app
 

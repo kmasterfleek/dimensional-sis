@@ -1,6 +1,6 @@
 {
   "id": "alt",
-  "name": "Librea Alt",
+  "name": "Dimensional SIS Alt",
   "tagline": "Credits, attendance, and the students who came back.",
   "audience": "Alternative schools: charters, continuation and credit-recovery programs, independent study, therapeutic and day-treatment schools, court and community schools, and indigenous or culturally-rooted schools.",
   "vocabulary": {
@@ -48,11 +48,11 @@
   "theme": {
     "accent": "#2f5d50",
     "accent2": "#b5652f",
-    "logoText": "Librea Alt"
+    "logoText": "Dimensional SIS Alt"
   },
   "copy": {
     "homeHeadline": "Re-engagement, one credit at a time.",
-    "homeBody": "Alternative schools measure two things every day: who came back, and how close each student is to a diploma. Librea Alt keeps both in front of you — attendance tied to your funding, credits tied to graduation, plans tied to their review dates — in a record that lives on your own machine.",
+    "homeBody": "Alternative schools measure two things every day: who came back, and how close each student is to a diploma. Dimensional SIS Alt keeps both in front of you — attendance tied to your funding, credits tied to graduation, plans tied to their review dates — in a record that lives on your own machine.",
     "homeSecondary": "Students arrive mid-year, mid-semester, mid-week. The record is built to take them as they come.",
     "onboardingIntro": "Six steps. Bring in whatever your last vendor gave you, then add the students who walked in this week by hand. None of this needs an IT department, and none of it leaves the building.",
     "onboardingOutro": "That is the whole setup. From here the work is daily: mark attendance, post credits, keep the plans current.",

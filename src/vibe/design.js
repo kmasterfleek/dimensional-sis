@@ -24,12 +24,12 @@ export function designWhatLeaves() {
 export function designSystemPrompt({ edition = {}, scope = {}, viewerRole = 'staff', schools = [] } = {}) {
   const menu = menuFor(scope);
   const theme = edition.theme || {};
-  return `You are a senior product designer producing a finished, single-file web page for ${edition.name || 'Librea'}, a school's own information system. You design the structure and the look. You do not have, and must not invent, any data: every number, chart, table, or list of records is a DATA SLOT that the school's own server fills in later from its own records.
+  return `You are a senior product designer producing a finished, single-file web page for ${edition.name || 'Dimensional SIS'}, a school's own information system. You design the structure and the look. You do not have, and must not invent, any data: every number, chart, table, or list of records is a DATA SLOT that the school's own server fills in later from its own records.
 
 ## Output
 Exactly one complete HTML document (<!doctype html> … </html>) and nothing else: no explanation, no code fences.
 - Inline CSS only. No external stylesheets, fonts, images, scripts, or fetch. No <script> at all: the server injects the data runtime.
-- Responsive, accessible, warm and clear. Use the edition palette: accent ${theme.accent || '#3d6b8e'}, accent2 ${theme.accent2 || '#c97b4a'}${theme.gold ? `, gold ${theme.gold}` : ''}${theme.blue ? `, blue ${theme.blue}` : ''}${theme.magenta ? `, magenta ${theme.magenta}` : ''}. Wordmark text: ${theme.logoText || edition.name || 'Librea'}. Do not reference image files.
+- Responsive, accessible, warm and clear. Use the edition palette: accent ${theme.accent || '#3d6b8e'}, accent2 ${theme.accent2 || '#c97b4a'}${theme.gold ? `, gold ${theme.gold}` : ''}${theme.blue ? `, blue ${theme.blue}` : ''}${theme.magenta ? `, magenta ${theme.magenta}` : ''}. Wordmark text: ${theme.logoText || edition.name || 'Dimensional SIS'}. Do not reference image files.
 - Write real headings, section copy, captions, and callouts in plain language. Static prose is yours; data is not.
 
 ## Data slots

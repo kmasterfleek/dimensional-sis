@@ -162,7 +162,7 @@ export const PASSTHROUGH = {
 
 /**
  * Rename one row's canonical fields onto its fact-table columns. `resolve`
- * remaps a vendor user or org id onto the Librea entity it refers to, so
+ * remaps a vendor user or org id onto the Dimensional SIS entity it refers to, so
  * enrollments and results join to the same students the roster created.
  */
 export function passthroughRow(kind, v, { resolveUser, resolveOrg } = {}) {

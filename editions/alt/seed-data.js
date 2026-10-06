@@ -1,4 +1,4 @@
-// Static tables for the Librea Alt seed: synthetic names, the course catalog a
+// Static tables for the Dimensional SIS Alt seed: synthetic names, the course catalog a
 // continuation / independent-study school actually offers, and the sentence
 // stock the fragments are built from. No real person, school, or record here.
 

@@ -1,6 +1,6 @@
 ---
-name: librea-import
-description: Map a school's own SIS export (PowerSchool, Aeries, Infinite Campus, OneRoster or any spreadsheet) onto Librea's importer, check the guessed column mapping, and apply it. Use when someone has a CSV of students, staff, attendance, grades or discipline and wants it in Librea, or when a preset guesses a column wrong and needs fixing.
+name: dimensional-import
+description: Map a school's own SIS export (PowerSchool, Aeries, Infinite Campus, OneRoster or any spreadsheet) onto Dimensional SIS's importer, check the guessed column mapping, and apply it. Use when someone has a CSV of students, staff, attendance, grades or discipline and wants it in Dimensional SIS, or when a preset guesses a column wrong and needs fixing.
 ---
 
 # Importing a district's own export
@@ -60,14 +60,14 @@ Edit `src/import/presets.js`:
 4. Drop a small, synthetic sample at `data/seed/samples/myvendor-students.csv` so the UI can offer it.
 5. Add a detection test in `tests/import.test.js` and run `npm test`.
 
-If the problem is a *value* rather than a *column* — a lunch status Librea does not recognise, a date format, an attendance code — the fix belongs in `src/import/values.js` (`toFrl`, `toEllLevel`, `toSpecialEd`, `toDate`, `toAttendanceCode`), and every one of those has tests to extend.
+If the problem is a *value* rather than a *column* — a lunch status Dimensional SIS does not recognise, a date format, an attendance code — the fix belongs in `src/import/values.js` (`toFrl`, `toEllLevel`, `toSpecialEd`, `toDate`, `toAttendanceCode`), and every one of those has tests to extend.
 
 ## Files this skill touches
 
 | File | Why |
 |---|---|
 | `src/import/presets.js` | New vendor dictionary, signature, registration. |
-| `src/import/values.js` | A value this district writes that Librea does not yet coerce. |
+| `src/import/values.js` | A value this district writes that Dimensional SIS does not yet coerce. |
 | `data/seed/samples/*.csv` | A synthetic sample of the new shape. Never a real export. |
 | `tests/import.test.js` | Detection and coercion tests. |
 

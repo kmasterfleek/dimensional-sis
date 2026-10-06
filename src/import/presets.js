@@ -1,5 +1,5 @@
 // Column alias dictionaries for the SIS exports districts actually hand us.
-// A preset maps canonical Librea field -> the column names that vendor uses.
+// A preset maps canonical Dimensional SIS field -> the column names that vendor uses.
 // Nothing here is authoritative about a vendor's schema; it is a generous
 // guess list, and the UI always lets a human correct the mapping.
 import { STUDENT_METRICS } from '../core/schema.js';

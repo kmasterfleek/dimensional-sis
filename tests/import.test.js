@@ -25,7 +25,7 @@ const sample = (name) => fs.readFileSync(path.join(SAMPLES, name), 'utf8');
 const tmpDirs = [];
 const openSql = [];
 function tmpDir() {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'librea-import-test-'));
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'dimensional-import-test-'));
   tmpDirs.push(dir);
   return dir;
 }

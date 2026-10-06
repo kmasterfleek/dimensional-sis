@@ -435,7 +435,7 @@ export function chooseTemplate(prompt) {
 export function renderTemplate(prompt, title) {
   const t = chooseTemplate(prompt);
   const ask = String(prompt || 'An app for this school.').trim().replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c])).slice(0, 400);
-  const name = String(title || 'Librea app').replace(/[<>&]/g, '').slice(0, 100);
+  const name = String(title || 'Dimensional SIS app').replace(/[<>&]/g, '').slice(0, 100);
   return { html: t.build(name, ask), template: t.name };
 }
 

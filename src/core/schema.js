@@ -1,4 +1,4 @@
-// Canonical schema for Librea: the shapes every importer maps INTO and every
+// Canonical schema for Dimensional SIS: the shapes every importer maps INTO and every
 // app reads FROM. Keep this the single source of truth.
 
 /** The 15 signal dimensions. Order matters: it is the vector layout. */

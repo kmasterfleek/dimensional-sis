@@ -1,11 +1,11 @@
 ---
-name: librea-deploy
-description: Run Librea on a school's own server — Docker or bare Node, environment configuration, TLS via a reverse proxy, backups of data/, and restore. Use when someone asks how to host Librea for a whole school, how to back it up, what to do if the SQLite file is corrupt, or how to move an installation to another machine.
+name: dimensional-deploy
+description: Run Dimensional SIS on a school's own server — Docker or bare Node, environment configuration, TLS via a reverse proxy, backups of data/, and restore. Use when someone asks how to host Dimensional SIS for a whole school, how to back it up, what to do if the SQLite file is corrupt, or how to move an installation to another machine.
 ---
 
-# Deploying Librea on a school server
+# Deploying Dimensional SIS on a school server
 
-Librea is one Node 20 process, one folder of data, and no external services. Deployment is mostly about who can reach the port and who can read the folder.
+Dimensional SIS is one Node 20 process, one folder of data, and no external services. Deployment is mostly about who can reach the port and who can read the folder.
 
 Before deploying beyond one laptop, read the honest-status list in `README.md` with the school: no HTTPS of its own, no SSO, no rate limiting, in-memory sessions, plaintext data on disk, teachers seeing every student, and no per-record read audit. Deployment does not fix any of those; a reverse proxy fixes exactly one.
 

@@ -67,16 +67,16 @@ export function shellPage(app, { version, user }) {
   const draft = app.published ? '' : '<span class="badge draft">draft</span>';
   return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${esc(app.title)} &middot; Librea</title><style>${SHELL_CSS}</style></head>
+<title>${esc(app.title)} &middot; Dimensional SIS</title><style>${SHELL_CSS}</style></head>
 <body>
 <header>
   <h1>${esc(app.title)}</h1>
-  <span class="by">by ${esc(app.author?.displayName || app.author?.username || 'unknown')}${app.templateGenerated ? ' &middot; built offline from a Librea template' : ''}</span>
+  <span class="by">by ${esc(app.author?.displayName || app.author?.username || 'unknown')}${app.templateGenerated ? ' &middot; built offline from a Dimensional SIS template' : ''}</span>
   <span class="badge" title="Enforced on the server, not in the page">${esc(badge)}</span>
   ${draft}
   <nav>
     <a href="/#/build?remix=${encodeURIComponent(app.slug)}">Remix</a>
-    <a href="/">Librea</a>
+    <a href="/">Dimensional SIS</a>
   </nav>
 </header>
 <iframe id="app" title="${esc(app.title)}" sandbox="allow-scripts" src="/a/${encodeURIComponent(app.slug)}/app.html?v=${Number(version)}"></iframe>

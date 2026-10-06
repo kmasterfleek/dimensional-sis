@@ -1,4 +1,4 @@
-// Import: paste, pick or try a sample CSV, check the mapping Librea guessed,
+// Import: paste, pick or try a sample CSV, check the mapping Dimensional SIS guessed,
 // then apply it. Nothing is written until you have looked at it.
 import { api, apiOptional, h, clear, render, status, panelMissing } from '/app.js';
 import { t } from '/js/edition.js';
@@ -14,7 +14,7 @@ export async function show() {
   const stage = h('div');
   render(h('div',
     h('h1', t('Import')),
-    h('p.lede', t('Bring a roster or an export from your old system. Librea guesses the mapping, shows you what it guessed, and never writes anything you have not looked at.')),
+    h('p.lede', t('Bring a roster or an export from your old system. Dimensional SIS guesses the mapping, shows you what it guessed, and never writes anything you have not looked at.')),
     presets ? sourceCard(stage) : panelMissing(t('Import is not available yet'), t('The import module is not installed on this server. Once it is, this page will read a CSV, show you the mapping and apply it.')),
     stage,
   ));
@@ -103,15 +103,15 @@ function previewCard(stage) {
 
   return h('div', { style: 'margin-top:18px' },
     h('div.card',
-      h('h2', { style: 'margin-top:0' }, '2 · What Librea read'),
+      h('h2', { style: 'margin-top:0' }, '2 · What Dimensional SIS read'),
       h('p.small.muted',
         `Detected ${p.preset ? `“${p.preset}”` : 'no known source'}${p.confidence != null ? ` (confidence ${Math.round(p.confidence * 100)}%)` : ''} · ${p.rowCount ?? '?'} rows · these look like ${KIND_LABEL[p.kind]?.toLowerCase() || p.kind} records.`),
       (p.warnings || []).length ? h('div.stack', p.warnings.map((w) => h('p.notice', typeof w === 'string' ? w : w.message))) : null,
-      (p.unmapped || []).length ? h('p.small.muted', 'Columns Librea did not recognise, which will be ignored: ' + p.unmapped.join(', ')) : null,
+      (p.unmapped || []).length ? h('p.small.muted', 'Columns Dimensional SIS did not recognise, which will be ignored: ' + p.unmapped.join(', ')) : null,
       h('h3', 'Mapping'),
       h('p.small.muted', { style: 'margin-top:0' }, 'Change anything that looks wrong. Fields left unmapped are not imported.'),
       h('div.tablewrap', h('table',
-        h('thead', h('tr', h('th', { scope: 'col' }, 'Librea field'), h('th', { scope: 'col' }, 'Your column'), h('th', { scope: 'col' }, 'First value'))),
+        h('thead', h('tr', h('th', { scope: 'col' }, 'Dimensional SIS field'), h('th', { scope: 'col' }, 'Your column'), h('th', { scope: 'col' }, 'First value'))),
         h('tbody', mapRows))),
       sampleTable(p, fields),
     ),
@@ -137,7 +137,7 @@ function sampleTable(p, fields) {
   if (!rows.length) return null;
   const cols = fields.filter((f) => rows.some((r) => r[f] != null && r[f] !== ''));
   return h('details', { style: 'margin-top:14px' },
-    h('summary', `Show the first ${rows.length} rows as Librea would read them`),
+    h('summary', `Show the first ${rows.length} rows as Dimensional SIS would read them`),
     h('div.tablewrap', { style: 'margin-top:8px' }, h('table',
       h('thead', h('tr', cols.map((c) => h('th', { scope: 'col' }, labelize(c))))),
       h('tbody', rows.map((r) => h('tr', cols.map((c) => h('td', String(r[c] ?? '')))))))),

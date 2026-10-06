@@ -10,7 +10,7 @@ export async function show() {
 
 function shell(title, lede, ...kids) {
   return h('div.centered',
-    h('div.row', { style: 'gap:10px;margin-bottom:18px' }, h('span.mark', { style: 'width:22px;height:22px' }), h('span', { style: 'font-size:1.3rem;font-weight:650' }, 'Librea')),
+    h('div.row', { style: 'gap:10px;margin-bottom:18px' }, h('span.mark', { style: 'width:22px;height:22px' }), h('span', { style: 'font-size:1.3rem;font-weight:650' }, 'Dimensional SIS')),
     h('div.card', h('h1', title), h('p.lede', lede), ...kids),
     h('p.small.muted', { style: 'margin-top:14px' }, 'This is running on your machine. Your records never leave the building unless you choose to send them.'),
   );
@@ -61,7 +61,7 @@ function bootstrapCard() {
       await api('/api/auth/bootstrap', { method: 'POST', body: { username: form.username.value, password: form.password.value } });
       await api('/api/auth/login', { method: 'POST', body: { username: form.username.value, password: form.password.value } });
       await refreshUser();
-      status('District admin created. Welcome to Librea.');
+      status('District admin created. Welcome to Dimensional SIS.');
       window.location.hash = '#/';
       const { boot } = await import('/app.js');
       await boot();

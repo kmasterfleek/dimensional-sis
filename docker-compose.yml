@@ -4,13 +4,13 @@
 #
 # ./data on the host is the whole school: back that folder up and you have
 # backed up the installation. See docs/security.md before exposing the port
-# beyond the machine — Librea speaks plain HTTP and expects a TLS-terminating
+# beyond the machine — Dimensional SIS speaks plain HTTP and expects a TLS-terminating
 # reverse proxy in front of it.
 services:
-  librea:
+  dimensional-sis:
     build: .
-    image: librea:local
-    container_name: librea
+    image: dimensional-sis:local
+    container_name: dimensional-sis
     restart: unless-stopped
     # Loopback only by default. Change to "4321:4321" once a reverse proxy
     # terminates TLS, or to reach it from another machine on a trusted network.

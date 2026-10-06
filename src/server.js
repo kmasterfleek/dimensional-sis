@@ -1,4 +1,4 @@
-// Librea server. One process, one folder, no cloud.
+// Dimensional SIS server. One process, one folder, no cloud.
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Router } from './api/router.js';

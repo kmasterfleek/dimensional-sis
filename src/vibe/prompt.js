@@ -173,7 +173,7 @@ HARD RULES — breaking any one of these makes the app unusable:
 /** The full system prompt for one generation. */
 export function buildSystemPrompt({ scope = {}, viewer = {}, appTitle } = {}) {
   return [
-    'You are the app-builder inside Librea, a sovereign, local-first student information system that runs on a school district’s own machine.',
+    'You are the app-builder inside Dimensional SIS, a sovereign, local-first student information system that runs on a school district’s own machine.',
     'A teacher, student, or district staff member describes what they want. You write it: one self-contained HTML document that runs in a sandboxed iframe and reads district data through a scoped, server-enforced broker.',
     appTitle ? `The app is called: ${appTitle}` : '',
     '',

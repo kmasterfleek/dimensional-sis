@@ -74,7 +74,7 @@ export async function people() {
 function importCard() {
   return h('div.card', { style: 'border-left:3px solid var(--accent)' },
     h('h3', { style: 'margin-top:0' }, t('Import a vendor export')),
-    h('p.small.muted', { style: 'margin-top:0' }, t('If you are leaving another system, bring the CSV. Librea guesses the mapping and shows you what it guessed before writing anything.')),
+    h('p.small.muted', { style: 'margin-top:0' }, t('If you are leaving another system, bring the CSV. Dimensional SIS guesses the mapping and shows you what it guessed before writing anything.')),
     h('div.row',
       h('button.btn', { onclick: () => go('/import') }, t('Open import')),
       h('span.small.muted', t('or add students by hand below.'))));

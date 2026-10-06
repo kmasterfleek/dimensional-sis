@@ -1,51 +1,68 @@
-# Librea
+# Dimensional SIS
 
-**A student information system your school owns.** Free, open source, and running on a computer you control. Nobody sells the data, nobody rents it back to you, and nobody can turn it off.
+**A free, open student information system that sees the whole child, and keeps every student's data on the school's own machines.** Nobody sells the data, nobody rents it back to you, and nobody can turn it off.
 
-Librea is for two kinds of people who are tired of the same thing from different directions.
+> We talk all day about AI ethics. Ethics we don't model is just a lecture. Modeling it means AI sovereignty: student, staff and family data stays off someone else's cloud. This is the AI moment. Either accountability starts with us, on hardware we own, or we offload it to big tech and complain about it later.
+
+## Why "dimensional"
+
+Today's student information systems see a child as one row in a spreadsheet: attendance, grades, discipline, a test score. Each column is a dimension, and there are only a few of them. Two kids with the same grades and the same attendance look identical, even when one is thriving and the other is quietly drowning.
+
+Think of giving directions. "On Main Street" is one dimension, and you still can't find the house. Add the cross street and you have a map. Add "third floor, apartment B" and you can knock on the door. Every dimension you add lets you tell apart things that looked the same.
+
+Dimensional SIS keeps the columns a school already tracks and adds the ones it has been missing: what teachers observe, what the student says about themselves, what the family sees at home. Every student carries a 15-dimension signal profile, and everything people write about them is understood by meaning, not only by keyword, so a counselor can ask "which students have written about feeling left out" and find them even if nobody used those words.
+
+Two rules come with that depth:
+
+- **Every dimension is a question for a person, never a verdict about a child.** The system says "take a look," never "this kid is at risk."
+- **Depth is only safe if it stays home.** A richer picture of a child is exactly the data that must not end up on someone else's servers. Dimensional SIS runs on a machine the school controls, and student records never go to an AI company.
+
+Dimensional SIS is for two kinds of people who are tired of the same thing from different directions.
 
 ## If you run a school or a district
 
 You already know the deal you are in. Your student information system belongs to a vendor. Your data lives on their servers. You pay every year for the right to see it, the export button gives you a spreadsheet that isn't really your records, and the procurement process that got you here took longer than the software will last. When they get breached, and they do, the letter to families comes from you.
 
-Librea keeps everything about your students, staff, and families on a machine in your building or a server you rent under your own name. It imports the exports you already have from PowerSchool, Aeries, Infinite Campus, or OneRoster, so nothing has to be re-typed. It records attendance, grades, discipline, services, plans, and enrollment history the way the state expects to see them, and it keeps a tamper-evident log of every change so you can prove what happened and when.
+Dimensional SIS keeps everything about your students, staff, and families on a machine in your building or a server you rent under your own name. It imports the exports you already have from PowerSchool, Aeries, Infinite Campus, or OneRoster, so nothing has to be re-typed. It records attendance, grades, discipline, services, plans, and enrollment history the way the state expects to see them, and it keeps a tamper-evident log of every change so you can prove what happened and when.
 
 Two things it does that your current system does not:
 
-- **It sees the whole child.** Every student is more than a grade point average. Librea keeps the structured record and also the voice: what teachers observed, what the student says about themselves, what families add. You can ask it questions in plain language, like "which fourth graders light up around building things," and get answers from what people actually wrote.
+- **It sees the whole child.** Every student is more than a grade point average. Dimensional SIS keeps the structured record and also the voice: what teachers observed, what the student says about themselves, what families add. You can ask it questions in plain language, like "which fourth graders light up around building things," and get answers from what people actually wrote.
 - **Your staff build their own tools.** A teacher describes the dashboard, page, or assignment they need in a sentence and gets a working web page with its own address. It reads your data, only the parts that person is allowed to see, and never sends a record anywhere.
 
-The   caveat: today Librea is at the stage where a district's technical team pilots it with synthetic data and decides what it needs before real records go in. The gaps are listed further down. There is no sales call to sit through and no contract; you download it.
+The caveat: today Dimensional SIS is at the stage where a district's technical team pilots it with synthetic data and decides what it needs before real records go in. The gaps are listed further down. There is no sales call to sit through and no contract; you download it.
 
 ## If you are starting a microschool, a pod, or a community school
 
 You have twenty kids, four adults, fifteen families, and a growing pile of paper you are supposed to keep in order: attendance, immunization records, emergency cards, consent forms, background checks, drill logs, learning plans, and, depending on your state, an affidavit. The software built for districts costs more than your rent and assumes an IT department. So it lives in a spreadsheet and a drawer.
 
-**Librea Micro** is the same system with your words in it: learners, guides, pods, families. You start from scratch, typing your community in by hand, and invite families and guides with a code. It keeps the records a regulator, an insurer, or a skeptical parent will ask for, and it tells you, every day, exactly what is missing: "Paloma has no immunization record on file. Silas's background check is still pending. No lockdown drill in 90 days." Families can see their own child's file and help close the gaps. Everything stays on your computer and leaves with you if you ever stop using it.
+**Dimensional SIS Micro** is the same system with your words in it: learners, guides, pods, families. You start from scratch, typing your community in by hand, and invite families and guides with a code. It keeps the records a regulator, an insurer, or a skeptical parent will ask for, and it tells you, every day, exactly what is missing: "Paloma has no immunization record on file. Silas's background check is still pending. No lockdown drill in 90 days." Families can see their own child's file and help close the gaps. Everything stays on your computer and leaves with you if you ever stop using it.
 
-**Librea Alt** does the same for alternative schools: charters, continuation and credit-recovery programs, independent study, therapeutic schools. Advisors instead of homeroom teachers, credits toward graduation as the number that matters, plan review dates that don't slip, and a list every week of the students who need a call.
+**Dimensional SIS Alt** does the same for alternative schools: charters, continuation and credit-recovery programs, independent study, therapeutic schools. Advisors instead of homeroom teachers, credits toward graduation as the number that matters, plan review dates that don't slip, and a list every week of the students who need a call.
 
-Requirements vary by state and Librea is a tool, not legal advice. But it makes "more than legit" a checklist you can actually finish.
+Requirements vary by state and Dimensional SIS is a tool, not legal advice. But it makes "more than legit" a checklist you can actually finish.
 
 ## What it takes
 
 - A computer that stays on: a laptop in the office, a small server, or a rented machine. No cloud account required.
-- One person who is comfortable following instructions in a terminal, or a coding assistant. Librea is built to be opened in a tool like Claude Code and adapted by conversation: the repository carries its own instructions for the assistant, and the common changes (your vocabulary, your CSV format, your colors, your server) are each a guided task.
+- One person who is comfortable following instructions in a terminal, or a coding assistant. Dimensional SIS is built to be opened in a tool like Claude Code and adapted by conversation: the repository carries its own instructions for the assistant, and the common changes (your vocabulary, your CSV format, your colors, your server) are each a guided task.
 - About an hour to see it running with sample data. Longer to make it yours.
 
 A hosted demo with synthetic data is planned so you can click around before installing anything. Until then, the quick start below takes ten minutes with a technical friend.
 
-## What Librea is not, yet
+## What Dimensional SIS is not, yet
 
-It is demo-grade. It has been built and tested with synthetic students, not run in a school. Before a real child's record goes in, a school needs the things listed under "  status" below: encrypted disks, HTTPS, single sign-on, and a read audit. None of those are exotic; they are the work of a pilot, and they are why the technical section exists.
+It is demo-grade. It has been built and tested with synthetic students, not run in a school. Before a real child's record goes in, a school needs the things listed under "Status" below: encrypted disks, HTTPS, single sign-on, and a read audit. None of those are exotic; they are the work of a pilot, and they are why the technical section exists.
 
 ---
 
 # For the technical reader
 
-Librea is a single Node process with four runtime dependencies, no build step, and no cloud account. Every change is written to a hash-chained ledger on disk; the searchable vectors, the SQLite database, and the app catalogue are projections rebuilt from that ledger. On top sits a vibe-coding layer: describe a tool in a sentence and Librea writes it as a sandboxed page that reads data through a scoped, server-enforced broker.
+Dimensional SIS is a single Node process with four runtime dependencies, no build step, and no cloud account. Every change is written to a hash-chained ledger on disk; the searchable vectors, the SQLite database, and the app catalogue are projections rebuilt from that ledger. On top sits a vibe-coding layer: describe a tool in a sentence and Dimensional SIS writes it as a sandboxed page that reads data through a scoped, server-enforced broker.
 
 Editions flavor one codebase per audience: the default `district`, `LIBREA_EDITION=micro`, and `LIBREA_EDITION=alt`. Each has its own vocabulary, onboarding, compliance pack, seed, and starter apps.
+
+The project was called Librea until October 2026. Settings (`LIBREA_*`), data filenames and the `window.librea` app runtime keep that name so existing installs keep working.
 
 ## The sovereignty promise, as of now
 
@@ -68,9 +85,9 @@ This is the part to hand your IT person, your board, or your lawyer.
 
 **What leaves the building.** Only what the app-builder sends to whichever model provider you configure, and only ever the *shape* of your data:
 
-- `template` (default) — nothing. No model, no network; Librea assembles apps from built-in templates.
+- `template` (default) — nothing. No model, no network; Dimensional SIS assembles apps from built-in templates.
 - `ollama` with a local tag — nothing leaves the machine; the model runs at `LIBREA_OLLAMA_HOST`.
-- `ollama` with a `:cloud` / `-cloud` tag — your prompt and the schema go to Ollama's servers through the local daemon. Librea says so in the UI instead of pretending otherwise.
+- `ollama` with a `:cloud` / `-cloud` tag — your prompt and the schema go to Ollama's servers through the local daemon. Dimensional SIS says so in the UI instead of pretending otherwise.
 - `anthropic` — your prompt and the schema go to Anthropic's API.
 
 **Student records never go to a model provider.** The system prompt is assembled in `src/vibe/prompt.js` from schema constants plus one fabricated student (`Avery Example`, `STU-EXAMPLE-0001`). No real name, id, metric, or anything a child, family or teacher wrote is ever in it. Real data reaches the generated app only at runtime, through the broker, after the page is already written. Ask the running server yourself: `GET /api/vibe/provider` returns the provider and a plain-language `whatLeaves` statement.
@@ -80,8 +97,8 @@ This is the part to hand your IT person, your board, or your lawyer.
 ## Quick start
 
 ```bash
-git clone <your fork of this repo> librea
-cd librea
+git clone <your fork of this repo> dimensional-sis
+cd dimensional-sis
 npm install
 npm run seed      # 850 synthetic students, 4 schools, ~2000 fragments, 30 days of attendance
 npm start         # http://127.0.0.1:4321
@@ -111,17 +128,17 @@ Each edition carries its own seed, starter apps and README under `editions/<id>/
 
 ## Make it yours with your coding agent
 
-Librea is meant to be forked and rewritten, not configured. Open the folder in Claude Code (or any coding agent) and point it at [`AGENTS.md`](AGENTS.md) — a map of every module, the invariants that must not break and the file that enforces each one, and recipes for the common changes.
+Dimensional SIS is meant to be forked and rewritten, not configured. Open the folder in Claude Code (or any coding agent) and point it at [`AGENTS.md`](AGENTS.md) — a map of every module, the invariants that must not break and the file that enforces each one, and recipes for the common changes.
 
 Five skills under `.claude/skills/` make this concrete:
 
 | Skill | What it does |
 |---|---|
-| `librea-adopt` | First-run interview: who you are, which edition, what to rename, what to seed. |
-| `librea-import` | Map your own SIS export onto a preset and check the mapping before applying. |
-| `librea-brand` | Your name, colours and vocabulary, as an edition. |
-| `librea-model` | Connect Ollama or Anthropic, and update the sovereignty statement  ly. |
-| `librea-deploy` | Run it on a school server: Docker, env, backups, restore. |
+| `dimensional-adopt` | First-run interview: who you are, which edition, what to rename, what to seed. |
+| `dimensional-import` | Map your own SIS export onto a preset and check the mapping before applying. |
+| `dimensional-brand` | Your name, colours and vocabulary, as an edition. |
+| `dimensional-model` | Connect Ollama or Anthropic, and update the sovereignty statement. |
+| `dimensional-deploy` | Run it on a school server: Docker, env, backups, restore. |
 
 The four adaptations almost everyone makes:
 
@@ -137,7 +154,7 @@ cp docs/docker/env.example.txt .env    # edit it
 docker compose up -d
 ```
 
-One service, `./data` mounted as a volume, `.env` for configuration. Data is never baked into the image: `docs/docker/entrypoint.sh` seeds the synthetic district only when the data directory has no ledger, and `LIBREA_SEED_ON_EMPTY=0` starts empty. Put a TLS-terminating reverse proxy in front before anyone outside the machine reaches it. Backups, restore and the rest are in the `librea-deploy` skill.
+One service, `./data` mounted as a volume, `.env` for configuration. Data is never baked into the image: `docs/docker/entrypoint.sh` seeds the synthetic district only when the data directory has no ledger, and `LIBREA_SEED_ON_EMPTY=0` starts empty. Put a TLS-terminating reverse proxy in front before anyone outside the machine reaches it. Backups, restore and the rest are in the `dimensional-deploy` skill.
 
 ## Model providers
 
@@ -153,9 +170,9 @@ ANTHROPIC_API_KEY=sk-ant-...                # selects anthropic automatically if
 LIBREA_MODEL=claude-opus-5                  # default Anthropic model
 ```
 
-Librea does not hide the cloud tag case. A model whose tag ends in `:cloud` or `-cloud` is reported as `offline: false` with an explicit statement that your prompt reaches Ollama's servers, and that swapping the tag for a local model makes it stop. See `src/vibe/providers.js`.
+Dimensional SIS does not hide the cloud tag case. A model whose tag ends in `:cloud` or `-cloud` is reported as `offline: false` with an explicit statement that your prompt reaches Ollama's servers, and that swapping the tag for a local model makes it stop. See `src/vibe/providers.js`.
 
-##   status: demo-grade, not yet pilot-grade
+## Status: demo-grade, not yet pilot-grade
 
 Everything below is true of the code as it stands. None of it is hidden in a footnote because a school deserves to know before it puts a child's record in.
 
@@ -165,7 +182,7 @@ Everything below is true of the code as it stands. None of it is hidden in a foo
 - **No rate limiting** anywhere, including login. A local network is assumed to be trusted, which is a real assumption and not always a safe one.
 - **Sessions live in memory** with a 12-hour TTL, so a restart signs everyone out, and the session cookie is `HttpOnly; SameSite=Strict` but not `Secure` (there is no TLS to be secure about yet).
 - **Roles are coarse.** `staff` sees every student in the installation, not only their own roster. Families and students are limited to their linked records; teachers are not limited at all.
-- **No per-record read audit.** Writes are all in the ledger with an actor. Reads are not logged, so "who looked at this child's file" is a question Librea cannot currently answer.
+- **No per-record read audit.** Writes are all in the ledger with an actor. Reads are not logged, so "who looked at this child's file" is a question Dimensional SIS cannot currently answer.
 
 `docs/security.md` lists each gap with a concrete next step.
 
@@ -191,7 +208,7 @@ docs/          architecture, security, editions, API
 
 ## License
 
-GNU General Public License v3.0 or later. See [LICENSE](LICENSE). You may run, study, change and redistribute Librea, including for a fee, provided changes you distribute stay under the same license. A school running it for itself has no obligations beyond that. Copyright remains with the contributors.
+GNU General Public License v3.0 or later. See [LICENSE](LICENSE). You may run, study, change and redistribute Dimensional SIS, including for a fee, provided changes you distribute stay under the same license. A school running it for itself has no obligations beyond that. Copyright remains with the contributors.
 
 ## Credits
 

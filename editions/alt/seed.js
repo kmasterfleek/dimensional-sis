@@ -1,4 +1,4 @@
-// Librea Alt demo seed: Eastside Continuation & Independent Study.
+// Dimensional SIS Alt demo seed: Eastside Continuation & Independent Study.
 // 140 students, grades 8-12, high mobility, heavy plan and behavior-support
 // work, credits toward graduation as the central number, attendance tied to
 // ADA funding. Everything here is synthetic and deterministic given the

@@ -5,7 +5,7 @@ import { api } from '/app.js';
 /** Mirrors src/core/edition.js BASE_EDITION. Used until /api/edition answers. */
 export const BASE_EDITION = {
   id: 'district',
-  name: 'Librea',
+  name: 'Dimensional SIS',
   tagline: 'The student information system you own.',
   audience: 'Public school districts',
   vocabulary: { district: 'district', school: 'school', student: 'student', family: 'family', staff: 'staff', teacher: 'teacher', class: 'class', grade: 'grade', principal: 'principal' },
@@ -13,7 +13,7 @@ export const BASE_EDITION = {
   features: { import: true, vibe: true, sql: true, compliance: true, onboarding: true, timeline: true, invites: true },
   compliance: { packs: ['core'] },
   onboarding: { mode: 'import-or-manual', steps: ['organization', 'people', 'families', 'compliance', 'apps'] },
-  theme: { accent: '#a2552b', accent2: '#2f6f6a', logoText: 'Librea' },
+  theme: { accent: '#a2552b', accent2: '#2f6f6a', logoText: 'Dimensional SIS' },
   copy: {},
 };
 
@@ -63,11 +63,11 @@ function applyTheme(theme = {}) {
   if (theme.accent2) root.style.setProperty('--accent2', lift(theme.accent2));
   const word = document.querySelector('.wordmark');
   if (word) word.textContent = theme.logoText || current.name;
-  document.title = current.name || 'Librea';
+  document.title = current.name || 'Dimensional SIS';
   const foot = document.querySelector('#foot p');
   if (foot) {
     foot.textContent = copyIndex[norm('footer')]
-      || t('Librea runs on this machine. Nothing leaves the building unless you send it.').replace(/^Librea\b/, current.name);
+      || t('Dimensional SIS runs on this machine. Nothing leaves the building unless you send it.').replace(/^Dimensional SIS\b/, current.name);
   }
 }
 

@@ -177,7 +177,7 @@ async function peoplePicker(ctx, list) {
 export async function apps() {
   if (!feature('vibe')) return h('p.empty', t('This edition does not include the app builder.'));
   return h('div',
-    h('p.lede', say(['onboarding_apps', 'onboardingApps'], 'The last step is the one nobody else offers: describe a tool you wish you had, and Librea writes it against your own records.')),
+    h('p.lede', say(['onboarding_apps', 'onboardingApps'], 'The last step is the one nobody else offers: describe a tool you wish you had, and Dimensional SIS writes it against your own records.')),
     h('div.row', h('button.btn', { onclick: () => go('/build') }, t('Build something')),
       h('button.btn.ghost', { onclick: () => go('/apps') }, t('See what is here'))));
 }

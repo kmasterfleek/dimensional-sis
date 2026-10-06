@@ -44,7 +44,7 @@ export function providerInfo() {
     model: 'librea-templates',
     offline: true,
     configured: true,
-    describe: 'No model at all. Librea assembles the app from built-in templates. Nothing leaves this machine.',
+    describe: 'No model at all. Dimensional SIS assembles the app from built-in templates. Nothing leaves this machine.',
   };
 }
 

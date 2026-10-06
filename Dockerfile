@@ -1,4 +1,4 @@
-# Librea. The image is code; the school is the volume mounted at /data.
+# Dimensional SIS. The image is code; the school is the volume mounted at /data.
 # Nothing is seeded at build time — docs/docker/entrypoint.sh seeds on first
 # start only when the data directory has no ledger.
 FROM node:20-bookworm-slim

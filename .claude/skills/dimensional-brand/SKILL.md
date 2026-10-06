@@ -1,9 +1,9 @@
 ---
-name: librea-brand
-description: Rename and rebrand Librea for a specific school through an edition — vocabulary (district/student/teacher → their words), colours, logo text, home page copy, invite emails, enabled features, and onboarding steps. Use when someone wants Librea to say "learners" instead of "students", wants their own name and colours, or asks how to make it not look like a demo.
+name: dimensional-brand
+description: Rename and rebrand Dimensional SIS for a specific school through an edition — vocabulary (district/student/teacher → their words), colours, logo text, home page copy, invite emails, enabled features, and onboarding steps. Use when someone wants Dimensional SIS to say "learners" instead of "students", wants their own name and colours, or asks how to make it not look like a demo.
 ---
 
-# Branding Librea as an edition
+# Branding Dimensional SIS as an edition
 
 Never hard-code a school's name into `src/` or `public/`. One JSON file renames the whole application, in the browser and on the server, because every page asks `t()` for its words (`public/js/edition.js`) and `src/core/edition.js` does the substitution with case preserved.
 

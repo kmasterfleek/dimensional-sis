@@ -1,5 +1,5 @@
 // Reports: the paper a school hands someone. Every one is a CSV a person can
-// open without Librea, print, and sign. Nothing here is computed twice — it is
+// open without Dimensional SIS, print, and sign. Nothing here is computed twice — it is
 // the projection, laid out the way the asking party wants to read it.
 import { today, isWeekday, enrolledStudents, allStaff, nameOf, toCsv, schoolYearLabel, schoolYearStart } from './util.js';
 

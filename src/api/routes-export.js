@@ -1,5 +1,5 @@
 // Export: the third sovereignty check is "what survives your exit". Everything
-// here comes back out as plain files a district can read without Librea.
+// here comes back out as plain files a district can read without Dimensional SIS.
 import fs from 'node:fs';
 import { requireRole } from './context.js';
 import { DIM_KEYS } from '../core/schema.js';
@@ -23,7 +23,7 @@ export function registerExport(router, { store }) {
     const metricKeys = [...new Set(students.flatMap((s) => Object.keys(s.metrics || {})))].sort();
     const head = ['id', 'firstName', 'lastName', 'grade', 'schoolId', 'outcome', 'flags', ...metricKeys, ...DIM_KEYS.map((k) => 'dim_' + k)];
     const rows = students.map((s) => [s.id, s.firstName, s.lastName, s.grade, s.schoolId, s.outcome, (s.flags || []).map((f) => f.key).join('|'), ...metricKeys.map((k) => s.metrics?.[k]), ...DIM_KEYS.map((k) => s.dims?.[k])]);
-    ctx.res.writeHead(200, { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': 'attachment; filename="librea-students.csv"' });
+    ctx.res.writeHead(200, { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': 'attachment; filename="dimensional-sis-students.csv"' });
     ctx.res.end([head, ...rows].map((r) => r.map(csvCell).join(',')).join('\n'));
   });
 

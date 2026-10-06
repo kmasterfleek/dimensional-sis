@@ -1,5 +1,5 @@
 #!/bin/sh
-# Librea container entrypoint.
+# Dimensional SIS container entrypoint.
 #
 # Data is never baked into the image: the image is code, the volume is the
 # school. On first start, if the data directory has no ledger, optionally seed

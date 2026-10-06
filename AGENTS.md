@@ -1,4 +1,4 @@
-# AGENTS.md — working on Librea with a coding agent
+# AGENTS.md — working on Dimensional SIS with a coding agent
 
 You are editing a student information system. The data it holds is about children, and the people adopting it have no vendor to call. Read this file before changing anything; `docs/architecture.md` has the longer version.
 

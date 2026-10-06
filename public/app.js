@@ -1,4 +1,4 @@
-// Librea shell: tiny hash router, API helper, shared state and DOM helpers.
+// Dimensional SIS shell: tiny hash router, API helper, shared state and DOM helpers.
 // Everything here is vanilla and local. No bundler, no CDN, no telemetry.
 
 import { loadEdition, edition, feature, t } from '/js/edition.js';

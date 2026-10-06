@@ -12,7 +12,7 @@ npm-debug.log*
 .gitignore
 .github
 
-# Agent tooling and local state — not part of Librea
+# Agent tooling and local state — not part of Dimensional SIS
 .claude
 .claude-flow
 .agents

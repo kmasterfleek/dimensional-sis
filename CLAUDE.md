@@ -1,6 +1,6 @@
-# Librea — instructions for coding agents
+# Dimensional SIS — instructions for coding agents
 
-Librea is a sovereign, vector-native student information system with a vibe-coding
+Dimensional SIS is a sovereign, vector-native student information system with a vibe-coding
 layer. It runs on a school's own machine. The data it holds is about children, and
 the people using it have no vendor to call.
 
@@ -67,7 +67,7 @@ invariant is proved, not just described.
 
 ## Skills
 
-`.claude/skills/librea-*` cover the common adoption tasks: `librea-adopt`
-(first run), `librea-import` (a district's own CSV), `librea-brand` (vocabulary
-and theme via an edition), `librea-model` (connecting a provider and keeping the
-sovereignty statement true), `librea-deploy` (server, backups, restore).
+`.claude/skills/dimensional-*` cover the common adoption tasks: `dimensional-adopt`
+(first run), `dimensional-import` (a district's own CSV), `dimensional-brand` (vocabulary
+and theme via an edition), `dimensional-model` (connecting a provider and keeping the
+sovereignty statement true), `dimensional-deploy` (server, backups, restore).

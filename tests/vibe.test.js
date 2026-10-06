@@ -116,7 +116,7 @@ test('default titles break at a word, not mid-word', () => {
   assert.equal(titleFrom('A website for the Robotics Club!'), 'Website for the Robotics Club');
   assert.equal(titleFrom('Build me a page where I reflect.'), 'Page where I reflect');
   assert.equal(titleFrom('the roster'), 'Roster');
-  assert.equal(titleFrom('   '), 'Librea app');
+  assert.equal(titleFrom('   '), 'Dimensional SIS app');
   for (const p of ['a dashboard', 'x'.repeat(200), 'show me my own radar', '???']) {
     const t = titleFrom(p);
     assert.ok(t.length && t.length <= 60 && !/[\s,;:.!?-]$/.test(t), JSON.stringify(t));

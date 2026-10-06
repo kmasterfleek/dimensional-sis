@@ -1,6 +1,6 @@
 {
   "id": "micro",
-  "name": "Librea Micro",
+  "name": "Dimensional SIS Micro",
   "tagline": "Records worthy of the learning you already do.",
   "audience": "Microschools, learning pods, homeschool co-ops, forest schools, and parent-run community schools (5-60 learners)",
   "vocabulary": {
@@ -32,7 +32,7 @@
   "theme": {
     "accent": "#a8622f",
     "accent2": "#6d8f6a",
-    "logoText": "Librea Micro"
+    "logoText": "Dimensional SIS Micro"
   },
   "copy": {
     "homeHeadline": "Your pod, on the record.",

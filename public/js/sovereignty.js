@@ -105,5 +105,5 @@ function exportBlock() {
   }
   const links = h('div.row', { style: 'margin-top:8px' }, EXPORTS.map(([href, label, hint]) =>
     h('a.btn.ghost.small', { href, download: '', title: hint, onclick: () => status('Downloading ' + label + '…') }, label)));
-  return item('Taking your data with you', 'Everything comes back out as plain files a district can read without Librea.', links);
+  return item('Taking your data with you', 'Everything comes back out as plain files a district can read without Dimensional SIS.', links);
 }

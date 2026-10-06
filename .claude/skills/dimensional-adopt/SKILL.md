@@ -1,9 +1,9 @@
 ---
-name: librea-adopt
-description: First-run adoption of Librea for a specific school, district, microschool or alternative program. Use when someone has just cloned Librea and wants to make it theirs — choosing an edition, seeding or clearing demo data, creating the real admin account, and deciding what to rename. Also use when they ask "where do I start" or "how do I set this up for my school".
+name: dimensional-adopt
+description: First-run adoption of Dimensional SIS for a specific school, district, microschool or alternative program. Use when someone has just cloned Dimensional SIS and wants to make it theirs — choosing an edition, seeding or clearing demo data, creating the real admin account, and deciding what to rename. Also use when they ask "where do I start" or "how do I set this up for my school".
 ---
 
-# Adopting Librea
+# Adopting Dimensional SIS
 
 Goal: take a fresh clone from demo state to a running installation that belongs to this school, with the adopter understanding what they now own. Interview first, edit second. Do not seed, wipe or rename anything before the answers are in.
 
@@ -32,7 +32,7 @@ Ask these and wait for answers. Keep it to one message.
 - Public district → `district` (the default; nothing to do).
 - Microschool, pod, co-op, forest school → `LIBREA_EDITION=micro`.
 - Alternative, independent, continuation, therapeutic program → `LIBREA_EDITION=alt`.
-- Anything else, or a district that wants its own words → make a new edition with the `librea-brand` skill.
+- Anything else, or a district that wants its own words → make a new edition with the `dimensional-brand` skill.
 
 Write the choice into `.env` (copy `docs/docker/env.example.txt` first). Read `docs/editions.md` before editing an edition file.
 
@@ -61,7 +61,7 @@ Never run `npm run seed` against a directory holding real records — it deletes
 
 ## 5. Bring people in
 
-- With a vendor export: use the `librea-import` skill.
+- With a vendor export: use the `dimensional-import` skill.
 - From scratch: create the school (`type: 'school'`), then students, families and staff, then invite codes for each person (`POST /api/invites`, redeemed at the sign-in page). Invites are how a school with no IT department onboards families.
 
 ## 6. Tell them what they now own
@@ -78,7 +78,7 @@ Before finishing, say plainly — in their words, not the README's:
 | File | Why |
 |---|---|
 | `.env` (from `docs/docker/env.example.txt`) | Edition, port, data dir. |
-| `editions/<id>/edition.json` | Only if they want new words — hand off to `librea-brand`. |
+| `editions/<id>/edition.json` | Only if they want new words — hand off to `dimensional-brand`. |
 | `data/` | Cleared, or seeded into a separate directory. Never edited by hand. |
 
 Do not edit `src/` during adoption. If the interview turns up something the code cannot do, name it as a change and read `AGENTS.md` before making it.

@@ -1,4 +1,4 @@
-// Append-only, hash-chained event ledger. Every state change in Librea is an
+// Append-only, hash-chained event ledger. Every state change in Dimensional SIS is an
 // event here first; the in-memory store is a projection of it. Tampering with
 // any line breaks the chain, which `verify()` reports.
 import fs from 'node:fs';

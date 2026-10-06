@@ -10,7 +10,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 
 export const BASE_EDITION = {
   id: 'district',
-  name: 'Librea',
+  name: 'Dimensional SIS',
   tagline: 'The student information system you own.',
   audience: 'Public school districts',
   vocabulary: { district: 'district', school: 'school', student: 'student', family: 'family', staff: 'staff', teacher: 'teacher', class: 'class', grade: 'grade', principal: 'principal' },
@@ -18,7 +18,7 @@ export const BASE_EDITION = {
   features: { import: true, vibe: true, sql: true, compliance: true, onboarding: true, timeline: true, invites: true },
   compliance: { packs: ['core'] },
   onboarding: { mode: 'import-or-manual', steps: ['organization', 'people', 'families', 'compliance', 'apps'] },
-  theme: { accent: '#3d6b8e', accent2: '#c97b4a', logoText: 'Librea' },
+  theme: { accent: '#3d6b8e', accent2: '#c97b4a', logoText: 'Dimensional SIS' },
   seed: 'data/seed/district.json',
   templates: null,
   copy: {},
