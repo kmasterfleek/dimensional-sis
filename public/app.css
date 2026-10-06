@@ -229,3 +229,22 @@ h4 { font-size: .88rem; margin: 1em 0 .3em; color: var(--ink-soft); }
 .guide-grid { display: grid; gap: 12px 18px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 .guide-grid b { display: block; margin-bottom: 2px; font-size: .9rem; }
 .guide-grid p { margin: 0; font-size: .9rem; color: var(--ink-soft); line-height: 1.45; }
+/* Dimensions: fingerprint, family completeness, rows */
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; vertical-align: middle; }
+.fp { display: grid; grid-template-columns: repeat(auto-fill, minmax(14px, 1fr)); gap: 3px; }
+.fp-cell { aspect-ratio: 1; border-radius: 3px; background: var(--line); }
+.fp-fams { display: grid; gap: 6px; margin-top: 14px; }
+.fp-fam { display: grid; grid-template-columns: minmax(120px, 1fr) 3fr 44px; gap: 10px; align-items: center; }
+.unlock { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 9px; }
+.dimrows { display: grid; gap: 2px; }
+.dimrow { display: grid; grid-template-columns: minmax(150px, 1.4fr) 1fr minmax(90px, .8fr) minmax(130px, 1.2fr); gap: 10px; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: .9rem; }
+.dimrow.unknown .dimlabel { color: var(--ink-faint); }
+.dimev { grid-column: 1 / -1; margin: 2px 0 4px; padding: 6px 10px; border-left: 3px solid var(--line); font-size: .84rem; color: var(--ink-soft); font-style: italic; }
+.dimnotes { grid-column: 1 / -1; border-left: 3px solid var(--watch); padding: 2px 10px; }
+.dimnotes p { margin: 2px 0; }
+@media (max-width: 640px) {
+  .dimrow { grid-template-columns: 1fr auto; }
+  .dimrow .dimbar { grid-column: 1 / -1; order: 3; }
+  .dimrow .dimsrc { grid-column: 1 / -1; order: 4; }
+  .unlock { flex-direction: column; align-items: flex-start; }
+}

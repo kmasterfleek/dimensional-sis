@@ -53,6 +53,7 @@ question.
     src/import/  CSV parsing, vendor presets, mapping, fact writing, jobs
     src/vibe/    providers, prompt, app storage, sandbox shell + runtime, broker
     src/compliance/  check packs (core, micro, alt), CSV reports, per-family to-do view
+    src/dimensions/  the dimension registry, values as ledger events, voice concepts, place data, profiles
     public/      the UI: vanilla ES modules, no bundler, no CDN
     editions/    micro, alt
     tests/       node --test, no network

@@ -8,7 +8,7 @@
 //   projection tables  - rebuilt from entity/fragment/snapshot events (students, staff, orgs, fragments, snapshots)
 //   fact tables        - written through `fact.upsert` events (everything else)
 
-export const SCHEMA_VERSION = 7;
+export const SCHEMA_VERSION = 8;
 
 export const DIM_COLS = ['gpa', 'attendance', 'testScore', 'courseRigor', 'assignCompletion', 'discipline', 'extracurricular', 'selScore', 'counselorVisits', 'trajectory', 'socioeconomic', 'homeStability', 'ellStatus', 'specialEd', 'peerConnected'];
 export const METRIC_COLS = ['gpa', 'attendancePct', 'testPercentile', 'courseRigor', 'assignCompletionPct', 'disciplineIncidents', 'extracurricularCount', 'selScore', 'counselorVisits', 'trajectory', 'ses', 'homeStability', 'ellLevel', 'specialEd', 'peerConnected'];
@@ -31,6 +31,7 @@ export const FACT_TABLES = {
   staff_credentials: { key: 'id', doc: 'Background checks, fingerprinting, CPR, mandated-reporter training, certifications, with expiry.', columns: { id: 'TEXT', staffSourcedId: 'TEXT', type: 'TEXT', status: "TEXT /* valid|expired|pending|missing */", issuedDate: 'TEXT', expiresDate: 'TEXT', issuer: 'TEXT', note: 'TEXT' } },
   learning_plans: { key: 'id', doc: 'Individual learning plans, IEP/504 plans, behavior support plans, transition plans, with review dates.', columns: { id: 'TEXT', studentSourcedId: 'TEXT', type: "TEXT /* ILP|IEP|504|BSP|transition|credit-recovery */", title: 'TEXT', status: "TEXT /* active|draft|closed */", startDate: 'TEXT', reviewDate: 'TEXT', goals: 'TEXT', owner: 'TEXT', note: 'TEXT' } },
   drills: { key: 'id', doc: 'Safety drills and inspections: fire, earthquake, lockdown, evacuation.', columns: { id: 'TEXT', orgSourcedId: 'TEXT', type: 'TEXT', date: 'TEXT', durationMinutes: 'REAL', participants: 'INTEGER', ledBy: 'TEXT', note: 'TEXT' } },
+  place_blocks: { key: 'id', doc: 'Public neighborhood data by census block group (walkability, tree canopy, heat, air, transit). Describes places, never students.', columns: { id: 'TEXT', name: 'TEXT', lat: 'REAL', lon: 'REAL', walkability: 'REAL', treeCanopy: 'REAL', parkMinutes: 'REAL', libraryMinutes: 'REAL', groceryMinutes: 'REAL', transitStops: 'REAL', heatDays: 'REAL', pm25: 'REAL', trafficProximity: 'REAL', broadband: 'REAL', pedestrianInjuries: 'REAL', communitySpaces: 'REAL', source: 'TEXT', year: 'TEXT' } },
   enrollment_events: { key: 'id', doc: 'Enrollment history: enrolled, withdrawn, transferred, graduated, with reason.', columns: { id: 'TEXT', studentSourcedId: 'TEXT', orgSourcedId: 'TEXT', event: "TEXT /* enrolled|withdrawn|transferred|graduated|re-enrolled */", date: 'TEXT', reason: 'TEXT', nextSchool: 'TEXT', note: 'TEXT' } },
 };
 
@@ -51,11 +52,14 @@ CREATE TABLE IF NOT EXISTS students (
 CREATE TABLE IF NOT EXISTS staff (sourcedId TEXT PRIMARY KEY, givenName TEXT, familyName TEXT, email TEXT, role TEXT, title TEXT, schoolSourcedId TEXT, updatedAt TEXT);
 CREATE TABLE IF NOT EXISTS fragments (id TEXT PRIMARY KEY, entityId TEXT, kind TEXT, visibility TEXT, authorId TEXT, authorRole TEXT, source TEXT, createdAt TEXT, mediaPath TEXT, text TEXT);
 CREATE TABLE IF NOT EXISTS snapshots (entityId TEXT, at TEXT, ${DIM_COLS.map((c) => `${c} REAL`).join(', ')}, PRIMARY KEY (entityId, at));
+CREATE TABLE IF NOT EXISTS student_dimensions (entityId TEXT, key TEXT, rater TEXT DEFAULT '', family TEXT, value REAL, norm REAL, text TEXT, source TEXT, confidence REAL, at TEXT, visibility TEXT, evidence TEXT, PRIMARY KEY (entityId, key, rater));
+CREATE TABLE IF NOT EXISTS dimension_catalog (key TEXT PRIMARY KEY, label TEXT, family TEXT, grp TEXT, kind TEXT, unit TEXT, minValue REAL, maxValue REAL, better TEXT, fill TEXT, visibility TEXT, context INTEGER, description TEXT);
 ${FACT_TABLE_NAMES.map((t) => `CREATE TABLE IF NOT EXISTS ${t} (${colDefs(FACT_TABLES[t].columns).replace(new RegExp(`^${FACT_TABLES[t].key} TEXT`), `${FACT_TABLES[t].key} TEXT PRIMARY KEY`)});`).join('\n')}
 CREATE INDEX IF NOT EXISTS idx_students_school ON students(schoolSourcedId);
 CREATE INDEX IF NOT EXISTS idx_students_grade ON students(grade);
 CREATE INDEX IF NOT EXISTS idx_fragments_entity ON fragments(entityId);
 CREATE INDEX IF NOT EXISTS idx_snapshots_entity ON snapshots(entityId);
+CREATE INDEX IF NOT EXISTS idx_sdims_key ON student_dimensions(key);
 CREATE INDEX IF NOT EXISTS idx_enrollments_user ON enrollments(userSourcedId);
 CREATE INDEX IF NOT EXISTS idx_enrollments_class ON enrollments(classSourcedId);
 CREATE INDEX IF NOT EXISTS idx_results_student ON results(studentSourcedId);
@@ -75,7 +79,7 @@ CREATE VIEW IF NOT EXISTS users AS
 `;
 
 /** Tables whose rows belong to a student and are scoped by entity id. Column naming the student. */
-export const STUDENT_SCOPED = { students: 'sourcedId', fragments: 'entityId', snapshots: 'entityId', enrollments: 'userSourcedId', results: 'studentSourcedId', attendance: 'studentSourcedId', discipline_incidents: 'studentSourcedId', services: 'studentSourcedId', contacts: 'studentSourcedId', immunizations: 'studentSourcedId', learning_plans: 'studentSourcedId', enrollment_events: 'studentSourcedId' };
+export const STUDENT_SCOPED = { students: 'sourcedId', fragments: 'entityId', snapshots: 'entityId', student_dimensions: 'entityId', enrollments: 'userSourcedId', results: 'studentSourcedId', attendance: 'studentSourcedId', discipline_incidents: 'studentSourcedId', services: 'studentSourcedId', contacts: 'studentSourcedId', immunizations: 'studentSourcedId', learning_plans: 'studentSourcedId', enrollment_events: 'studentSourcedId' };
 export const PII_COLS = { students: ['givenName', 'familyName', 'preferredName', 'dob', 'email', 'externalIds'], staff: ['email'] };
 export const PII_ONLY_TABLES = ['contacts', 'staff_credentials', 'documents', 'immunizations'];
 
@@ -89,6 +93,8 @@ export function describeSchema() {
     t('users', 'OneRoster-style view over students and staff.', ['sourcedId', 'role', 'givenName', 'familyName', 'email', 'grade', 'orgSourcedId']),
     t('fragments', 'The co-authored record: what students, families, and staff wrote. Filtered by your visibility.', ['id', 'entityId', 'kind', 'visibility', 'authorId', 'authorRole', 'source', 'createdAt', 'text']),
     t('snapshots', 'Monthly signal-dimension snapshots per student (values 0..1).', ['entityId', 'at', ...DIM_COLS]),
+    t('student_dimensions', 'Every other dimension of a student, one row per value (observed ratings: one row per adult rater; average them). value is raw in the unit of dimension_catalog; norm is 0..1 with 1 the favorable end (context dimensions keep their natural direction); text holds categories and free text. Filtered by your visibility.', ['entityId', 'key', 'rater', 'family', 'value', 'norm', 'text', 'source', 'confidence', 'at', 'visibility', 'evidence']),
+    t('dimension_catalog', 'What each dimension means: label, family (record, self, journey, voice, observed, place), unit, range, which end is favorable, and how it gets filled. context = 1 means it describes a place, not a child.', ['key', 'label', 'family', 'grp', 'kind', 'unit', 'minValue', 'maxValue', 'better', 'fill', 'visibility', 'context', 'description']),
     ...FACT_TABLE_NAMES.map((n) => t(n, FACT_TABLES[n].doc, Object.keys(FACT_TABLES[n].columns))),
   ];
 }

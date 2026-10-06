@@ -30,6 +30,7 @@ export const FRAGMENT_KINDS = [
   'self',        // written by the student about themselves
   'family',      // written by a parent/guardian
   'artifact',    // a piece of work (essay, project) with a text description
+  'speech',      // a speech in the student's own words (e.g. Project Soapbox); split into passages
   'photo',       // an image with caption, uploaded by family or student
   'note',        // free-form
 ];

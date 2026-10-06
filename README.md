@@ -10,7 +10,9 @@ Today's student information systems see a child as one row in a spreadsheet: att
 
 Think of giving directions. "On Main Street" is one dimension, and you still can't find the house. Add the cross street and you have a map. Add "third floor, apartment B" and you can knock on the door. Every dimension you add lets you tell apart things that looked the same.
 
-Dimensional SIS keeps the columns a school already tracks and adds the ones it has been missing: what teachers observe, what the student says about themselves, what the family sees at home. Every student carries a 15-dimension signal profile, and everything people write about them is understood by meaning, not only by keyword, so a counselor can ask "which students have written about feeling left out" and find them even if nobody used those words.
+Dimensional SIS keeps the columns a school already tracks and adds the ones it has been missing: what teachers observe, what the student says about themselves, what the family sees at home. Today that is about a hundred dimensions in six families: the **record** (grades, attendance detail, subjects, tests), **in their words** (a short student check-in: belonging, sleep, a trusted adult, stress, work and caretaking hours), **journey** (how long the trip to school takes and how, told by the family), **voice** (speeches, such as Project Soapbox, and their writing, read by meaning), **observed** (what adults who know them rate, averaged across raters), and **place** (public neighborhood data such as walkability, tree canopy and heat, which describes the neighborhood and never the child). Every one is optional. A gap is shown as unknown, never zero, and the gaps become a to-do list: "a ten-minute family conversation would fill in Journey."
+
+And the list is open. Anyone on staff can add a dimension by writing one sentence, like "being bullied or made to feel you don't belong," and every student's own shared words are scored against it by meaning, on the school's machine, with the passage that earned each score shown next to it.
 
 Two rules come with that depth:
 
@@ -144,7 +146,7 @@ The four adaptations almost everyone makes:
 
 1. **Your vocabulary and branding** — an edition under `editions/<id>/edition.json` (`docs/editions.md`).
 2. **Your SIS export** — a preset in `src/import/presets.js`, or a corrected mapping in the import UI.
-3. **Your definition of "doing well"** — the 15 dimensions in `src/core/schema.js`, the normalization in `src/core/signal.js`, the flags and risk formula in the same file. These are the most opinionated thing in the codebase and the thing you should argue with first.
+3. **Your definition of "doing well"** — the dimension registry in `src/dimensions/registry.js` (add a family, a dimension, or a starter concept sentence), the 15 core signals in `src/core/schema.js`, the normalization in `src/core/signal.js`, the flags and risk formula in the same file. These are the most opinionated thing in the codebase and the thing you should argue with first.
 4. **Your own screens** — either a page under `public/js/` wired into `ROUTES` in `public/app.js`, or a vibe app you describe in a sentence and never write by hand.
 
 ## Running it on a school server

@@ -14,7 +14,7 @@ Ground rules that apply to every change: read a file before editing it, keep eve
 |---|---|
 | `ledger.js` | Append-only, SHA-256 hash-chained JSONL log. `append()`, `replay()`, `verify()`. The source of truth. |
 | `store.js` | The in-memory projection plus entity/fragment/fact writes, semantic search, similarity, aggregate stats. Every write goes through here. |
-| `schema.js` | The canonical shapes: 15 dimensions, entity types, fragment kinds, visibility levels, role→visibility map, PII field list, validators. |
+| `schema.js` | The canonical shapes: the 15 core signal dimensions, entity types, fragment kinds, visibility levels, role→visibility map, PII field list, validators. |
 | `signal.js` | Raw metrics → 15 normalized 0..1 dims, plus cosine/euclidean, pattern flags, the risk score, and arc detection over a timeline. |
 | `embed.js` | The local embedder (`all-MiniLM-L6-v2`, 384d). Transformers backend, ruvector WASM fallback. The only model that sees student text. |
 | `auth.js` | Local accounts (scrypt), in-memory sessions, invite codes, and `scopeFor()` / `narrowScope()` — the single role→data-ceiling map. |
@@ -67,6 +67,20 @@ Ground rules that apply to every change: read a file before editing it, keep eve
 | `query.js` | **The broker.** Every op an app can call, each validated and scoped. `K_ANON = 5`. |
 | `routes.js` | Generate (SSE), app manifests, publish, the broker endpoint, the shell and the app document. |
 | `templates.js` | The offline generator: seven matchers plus a generic fallback, all hand-written. |
+
+### `src/dimensions/` — every other way of seeing a student
+
+| File | What it is |
+|---|---|
+| `registry.js` | The families (record, self, journey, voice, observed, place) and ~100 built-in dimensions, each with kind, range, favorable direction, who may write it and what fills it. Starter concept sentences. `normalize`, `coerce`. |
+| `store-dims.js` | Installed onto `Store`: `dim.set` / `dim.define` / `dim.retire` / `dim.note` ledger events, observed ratings averaged per rater, snapshot persistence. |
+| `profile.js` | Pure: completeness and confidence, the "what would fill this in" unlocks, questions for a human (never from Place), similarity on shared dimensions only. |
+| `concepts.js` | Splits long writing into passages; scores concept dimensions by meaning against students' own `school`-visible words, calibrated per concept. |
+| `derive.js` | Attendance detail and incident variety from SQL rows, voice counts, the place join, distance and a low-confidence commute estimate. |
+| `routes.js` | Profile, writes checked against each dimension's `writers`, notes, concept preview/define/retire, derive, place data import. |
+| `seed.js`, `seed-speeches.js` | Partial, synthetic coverage for the demo district, including Soapbox-style speeches. |
+
+Place dimensions are context (`context: true`): they never raise a question about a child and are left out of similarity. A concept never reads a `private` or `family`-only fragment. A family-reported commute is never overwritten by an estimate.
 
 ### `src/compliance/` — can this school answer the ordinary questions?
 
@@ -138,6 +152,7 @@ Which packs run comes from the active edition's `compliance.packs`. `src/server.
 | `tests/vibe.test.js` | Slugs, HTML extraction, offline templates, scope normalization and defaults, broker scope enforcement, app persistence, and generate end to end over HTTP. |
 | `tests/api.test.js` | The real HTTP surface against a throwaway data dir: bootstrap, login, people, fragments, search, export. |
 | `tests/onboard.test.js` | Edition loading and fallback, vocabulary substitution, from-scratch entity creation and invites. |
+| `tests/dimensions.test.js` | The registry, completeness/unlocks/questions, overlap similarity, chunking and calibration, ledger replay, a speech scored by meaning with evidence, and the HTTP write rules per role and SQL scope. |
 | `tests/compliance.test.js` | Pack selection, the checks against a fixture projection, report CSVs, and the scoping of the family to-do list. |
 
 Tests write only into `os.tmpdir()`. When you need the store in a test, stub the embedder — a real pass costs ~350 ms per fragment.

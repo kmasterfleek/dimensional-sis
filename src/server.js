@@ -47,7 +47,7 @@ export async function createApp({ dataDir = process.env.LIBREA_DATA || path.join
 /** Feature modules register themselves if present (import, vibe). */
 async function optionalModules() {
   const mods = [];
-  for (const spec of ['./import/routes.js', './vibe/routes.js', './compliance/routes.js']) {
+  for (const spec of ['./import/routes.js', './vibe/routes.js', './compliance/routes.js', './dimensions/routes.js']) {
     try { mods.push(await import(spec)); } catch (e) { if (e.code !== 'ERR_MODULE_NOT_FOUND') throw e; }
   }
   return mods;

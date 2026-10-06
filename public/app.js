@@ -132,6 +132,7 @@ const ROUTES = [
   { path: 'person', load: () => import('/js/person.js') },
   { path: 'family', load: () => import('/js/family.js') },
   { path: 'me', load: () => import('/js/person.js'), fn: 'me', nav: 'Me', roles: ['student'] },
+  { path: 'dimensions', load: () => import('/js/dimensions-page.js'), nav: 'Dimensions', roles: ['admin', 'staff'] },
   { path: 'onboard', load: () => import('/js/onboard.js'), nav: 'Set up', roles: ['admin'], feature: 'onboarding' },
   { path: 'compliance', load: () => import('/js/compliance.js'), nav: 'Compliance', roles: ['admin', 'staff'], feature: 'compliance' },
   { path: 'data', load: () => import('/js/data.js'), nav: 'Data', roles: '*', feature: 'sql' },

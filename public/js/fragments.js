@@ -6,6 +6,7 @@ import { t } from '/js/edition.js';
 const KIND_COPY = {
   self: ['In my own words', 'How something went, what you are working on, what you want people to know.'],
   artifact: ['Work I made', 'Describe a project, an essay, a performance. Put the story with the work.'],
+  speech: ['A speech', 'A speech in your own words, like a Soapbox speech. It is read by meaning on this machine and fills in your Voice dimensions.'],
   photo: ['A photo', 'An image with a caption.'],
   family: ['From home', 'What you see at home that school might not.'],
   observation: ['Observation', 'Something you noticed in class or in the hallway.'],
@@ -13,9 +14,9 @@ const KIND_COPY = {
 };
 
 const BY_ROLE = {
-  student: { kinds: ['self', 'artifact', 'photo'], visibility: ['private', 'family', 'school'], default: 'school' },
+  student: { kinds: ['self', 'speech', 'artifact', 'photo'], visibility: ['private', 'family', 'school'], default: 'school' },
   family: { kinds: ['family', 'photo'], visibility: ['family', 'school'], default: 'school' },
-  staff: { kinds: ['observation', 'note', 'photo'], visibility: ['school', 'staff'], default: 'school' },
+  staff: { kinds: ['observation', 'note', 'speech', 'photo'], visibility: ['school', 'staff'], default: 'school' },
   admin: { kinds: ['note', 'observation', 'photo'], visibility: ['school', 'staff'], default: 'school' },
 };
 

@@ -5,6 +5,7 @@ import { radar, domainLegend } from '/js/charts.js';
 import { t, Word, say } from '/js/edition.js';
 import { composer } from '/js/fragments.js';
 import { recordsSection } from '/js/records.js';
+import { dimensionsSection } from '/js/dimensions.js';
 
 export async function me() {
   const id = state.user?.entityId;
@@ -19,12 +20,16 @@ export async function show({ args }) {
   const dims = state.schema?.dimensions || [];
   const isSelf = state.user?.entityId === person.id;
   const timeline = h('div');
+  const asked = questions(person);
+  const dimQuestions = h('div.stack', { style: 'margin-top:12px' });
 
   const page = h('div',
     header(person, isSelf),
-    questions(person),
+    asked,
+    dimQuestions,
     creditsCard(person),
     h('div.grid.two', { style: 'margin-top:18px' }, signalCard(person, dims), metricsCard(person)),
+    person.type === 'student' ? dimensionsSection(person.id, { onQuestions: (qs) => drawDimQuestions(dimQuestions, qs) }) : null,
     similarCard(person),
     recordsSection(person.id),
     h('div', { style: 'margin-top:22px' },
@@ -59,6 +64,12 @@ function header(p, isSelf) {
   );
 }
 
+function drawDimQuestions(slot, qs) {
+  clear(slot).append(...qs.map((q) => h('div.question',
+    h('span', { 'aria-hidden': 'true' }, '?'),
+    h('div', h('p.q', t(q.text)), h('p.why', q.why)))));
+}
+
 function questions(p) {
   const flags = p.flags || [];
   if (!flags.length) return h('p.notice', { style: 'margin-top:14px' }, t('No pattern flags right now. That is worth noticing too.'));
@@ -89,7 +100,7 @@ function signalCard(p, dims) {
   return h('div.card',
     h('h2', { style: 'margin-top:0' }, t('Signal shape')),
     h('p.small.muted', { style: 'margin-top:0' },
-      t(`${present} of ${dims.length} signals present${p.coverage != null ? ` · coverage ${Math.round(p.coverage * 100)}%` : ''}. Missing signals are drawn at the centre, not guessed.`)),
+      t(`The ${dims.length} core signals the record already carried: ${present} present. Missing signals are drawn at the centre, not guessed. Every other dimension is below.`)),
     dims.length ? radar(p.dims || {}, dims, { size: 330 }) : null,
     domainLegend(),
   );
@@ -116,14 +127,15 @@ const labelize = (k) => k.replace(/([A-Z])/g, ' $1').replace(/^./, (c) => c.toUp
 
 function similarCard(p) {
   const body = h('div', h('p.small.muted', 'Loading…'));
-  let space = 'signal';
+  let space = p.type === 'student' ? 'dimensions' : 'signal';
   const tab = (key, label, hint) => h('button', {
     role: 'tab', 'aria-selected': String(space === key), title: hint,
     onclick: () => { space = key; drawTabs(); load(); },
   }, label);
   const tabs = h('div.tabs', { role: 'tablist' });
   const drawTabs = () => clear(tabs).append(
-    tab('signal', t('Similar signals'), t('Nearest students in the 15-dimension signal space')),
+    tab('dimensions', t('Similar in every dimension'), t('Nearest students across every dimension both of them have, place excluded')),
+    tab('signal', t('Similar core signals'), t('Nearest students in the 15 core signals')),
     tab('semantic', t('Similar stories'), t('Nearest students by what has been written about them')),
   );
   drawTabs();
@@ -140,7 +152,7 @@ function similarCard(p) {
           h('td', state.scope?.pii ? displayName(s.person) : s.person.id),
           h('td', gradeLabel(s.person.grade)),
           h('td', outcomePill(s.person.outcome) || '—'),
-          h('td', s.score.toFixed(3))))),
+          h('td', s.score.toFixed(3), s.shared ? h('span.small.muted', ` · ${s.shared} shared`) : null)))),
       )));
     } catch (e) { body.replaceChildren(h('p.err', e.message)); }
   }
@@ -163,6 +175,7 @@ function renderTimeline(fragments, onChange) {
       h('span', when(f.createdAt)),
       canRemove(f) ? h('button.linkish.del', { onclick: () => remove(f, onChange) }, t('Remove')) : null),
     f.kind === 'photo' && f.media?.path ? h('img', { src: f.media.path, alt: f.text || 'Photo', loading: 'lazy' }) : null,
+    f.title ? h('p', { style: 'margin-bottom:0' }, h('strong', f.title)) : null,
     h('p', f.text),
   )));
 }

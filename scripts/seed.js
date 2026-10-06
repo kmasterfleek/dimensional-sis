@@ -90,7 +90,7 @@ for (const s of students) {
   }, 'seed');
   const i1 = pick(INTERESTS, n), i2 = pick(INTERESTS, n * 7 + 3);
   const h = (n * 2654435761) >>> 0; // cheap deterministic scatter so templates mix
-  const selfText = `I'm ${s.fn}. I'm into ${i1} and ${i2}. ${pick(STRENGTHS, h >> 3)} This year I want to ${pick(GOALS, h >> 7)}. ${pick(WORRIES, h >> 11)}`.trim();
+  const selfText = `I'm ${s.fn}. I'm into ${i1} and ${i2}. ${pick(STRENGTHS, h >>> 3)} This year I want to ${pick(GOALS, h >>> 7)}. ${pick(WORRIES, h >>> 11)}`.trim();
   pending.push({ entityId: s.id, kind: 'self', visibility: 'school', text: selfText, author: { id: s.id.toLowerCase(), role: 'student', name: s.fn }, source: 'seed' });
   if (n % 2 === 0) pending.push({ entityId: s.id, kind: 'observation', visibility: n % 6 === 0 ? 'staff' : 'school', text: pick(STAFF_OBS, (n * 7919) >>> 0), author: { id: 'teacher.' + (n % 9), role: 'staff', name: 'Teacher ' + (n % 9) }, source: 'seed' });
   if (n % 3 === 0) pending.push({ entityId: s.id, kind: 'family', visibility: 'school', text: pick(FAMILY, (n * 104729) >>> 0).replaceAll('{n}', s.fn).replace('{lang}', pick(LANGS, n)).replace('{i}', i1), author: { id: 'family.' + s.id.toLowerCase(), role: 'family', name: s.ln + ' family' }, source: 'seed' });
@@ -161,6 +161,14 @@ if (fs.existsSync(tlFile)) {
 }
 // Staff
 for (let i = 0; i < 9; i++) store.upsertEntity({ id: 'STF-' + i, type: 'staff', firstName: 'Teacher', lastName: String(i), role: i < 6 ? 'teacher' : i < 8 ? 'counselor' : 'principal', schoolId: schoolId(seed.schools[i % 4].name) }, 'seed');
+
+// Dimensions beyond the core 15: journey, check-ins, observations, speeches,
+// neighborhood context. Partial on purpose; see src/dimensions/seed.js.
+{
+  const { seedDimensions } = await import('../src/dimensions/seed.js');
+  const d = await seedDimensions({ store, sql, students, schools: seed.schools, schoolId });
+  console.log(`  dimensions: ${d.blocks} neighborhood blocks, ${d.speeches} speeches, ${d.written} values entered, derived ${JSON.stringify(d.derived)}`);
+}
 
 // Accounts: admin / a teacher / one student / one family, all with demo passwords.
 if (!keep && !auth.bootstrapped) {

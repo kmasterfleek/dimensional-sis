@@ -77,7 +77,7 @@ export function registerCore(router, { store, auth, dataDir }) {
     requireUser(ctx);
     if (!canSeeEntity(ctx.scope, ctx.params.id)) throw new HttpError(404, 'no such person');
     const rows = await store.similar(ctx.params.id, { k: Math.min(50, Number(ctx.query.k) || 10), space: ctx.query.space || 'signal' });
-    return { similar: rows.filter((r) => canSeeEntity(ctx.scope, r.entity.id) || ctx.scope.aggregates).map((r) => ({ score: r.score, person: projectEntity(ctx.scope, r.entity) })) };
+    return { similar: rows.filter((r) => canSeeEntity(ctx.scope, r.entity.id) || ctx.scope.aggregates).map((r) => ({ score: r.score, ...(r.shared ? { shared: r.shared } : {}), person: projectEntity(ctx.scope, r.entity) })) };
   });
 
   router.get('/api/people/:id/timeline', (ctx) => {
@@ -101,11 +101,12 @@ export function registerCore(router, { store, auth, dataDir }) {
     if (!canSeeEntity(ctx.scope, ctx.params.id)) throw new HttpError(404, 'no such person');
     const b = ctx.body || {};
     const kind = b.kind || { student: 'self', family: 'family', staff: 'observation', admin: 'note' }[ctx.user.role];
-    if (ctx.user.role === 'student' && !['self', 'artifact', 'photo'].includes(kind)) throw new HttpError(403, 'students add self, artifact, or photo fragments');
+    if (ctx.user.role === 'student' && !['self', 'artifact', 'speech', 'photo'].includes(kind)) throw new HttpError(403, 'students add self, artifact, speech, or photo fragments');
     if (ctx.user.role === 'family' && !['family', 'photo'].includes(kind)) throw new HttpError(403, 'families add family or photo fragments');
     const visibility = b.visibility || 'school';
     if (['student', 'family'].includes(ctx.user.role) && visibility === 'staff') throw new HttpError(403, 'only staff can write staff-only notes');
-    const f = await store.addFragment({ entityId: ctx.params.id, kind, text: b.text, visibility, author: authorFor(ctx), source: b.source || 'ui' }, ctx.user.username);
+    const title = b.title ? String(b.title).trim().slice(0, 140) : undefined;
+    const f = await store.addFragment({ entityId: ctx.params.id, kind, text: b.text, visibility, author: authorFor(ctx), source: b.source || 'ui', ...(title ? { title } : {}) }, ctx.user.username);
     return { fragment: f };
   });
 

@@ -6,6 +6,7 @@
 import { STUDENT_SCOPED, PII_COLS, PII_ONLY_TABLES, FACT_TABLE_NAMES, describeSchema } from './schema.js';
 
 const MAX_ROWS = 2000;
+const SCOPED_TABLES = ['students', 'staff', 'fragments', 'snapshots', 'student_dimensions', 'dimension_catalog', ...FACT_TABLE_NAMES];
 const FORBIDDEN = /\b(main|temp|sqlite_master|sqlite_temp_master|sqlite_schema|attach|detach|pragma|load_extension|vacuum|writefile|readfile|fts5|zipfile)\b/i;
 
 export class SqlError extends Error { constructor(msg) { super(msg); this.status = 400; } }
@@ -32,14 +33,14 @@ export function scopeViews(db, scope) {
   const cols = (table) => db.prepare(`SELECT name FROM pragma_table_info('${table}')`).all().map((r) => r.name);
   const own = scope.entityIds === null ? null : scope.entityIds || [];
   const pii = !!scope.pii;
-  for (const table of ['students', 'staff', 'fragments', 'snapshots', ...FACT_TABLE_NAMES]) {
+  for (const table of SCOPED_TABLES) {
     const all = cols(table);
     const hidden = new Set(pii ? [] : (PII_COLS[table] || []));
     const select = all.filter((c) => !hidden.has(c)).map((c) => `"${c}"`).join(', ');
     const where = [];
     if (!pii && PII_ONLY_TABLES.includes(table)) where.push('0');
     if (own && STUDENT_SCOPED[table]) where.push(own.length ? `"${STUDENT_SCOPED[table]}" IN (${quoteList(own)})` : '0');
-    if (table === 'fragments') where.push(scope.visibility?.length ? `"visibility" IN (${quoteList(scope.visibility)})` : '0');
+    if (table === 'fragments' || table === 'student_dimensions') where.push(scope.visibility?.length ? `"visibility" IN (${quoteList(scope.visibility)})` : '0');
     views.push(`CREATE TEMP VIEW "${table}" AS SELECT ${select} FROM main."${table}"${where.length ? ' WHERE ' + where.join(' AND ') : ''}`);
   }
   const ownWhere = own ? (own.length ? ` WHERE sourcedId IN (${quoteList(own)})` : ' WHERE 0') : '';
@@ -56,7 +57,7 @@ export function runScoped(db, sql, scope, { limit = MAX_ROWS } = {}) {
   const clean = checkSql(sql);
   const cap = Math.max(1, Math.min(MAX_ROWS, Number(limit) || MAX_ROWS));
   const t0 = Date.now();
-  const drop = () => { for (const v of ['students', 'staff', 'fragments', 'snapshots', 'users', ...FACT_TABLE_NAMES]) db.exec(`DROP VIEW IF EXISTS temp."${v}"`); };
+  const drop = () => { for (const v of [...SCOPED_TABLES, 'users']) db.exec(`DROP VIEW IF EXISTS temp."${v}"`); };
   drop();
   for (const v of scopeViews(db, scope)) db.exec(v);
   try {

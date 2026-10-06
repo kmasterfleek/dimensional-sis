@@ -10,8 +10,12 @@ import { VectorDB } from 'ruvector';
 import { Ledger } from './ledger.js';
 import { validateEntity, validateFragment, DIM_KEYS } from './schema.js';
 import { dimsFromMetrics, signalVector, cosine, flags, outcomeLabel, coverage, riskScore, detectArc, arcs } from './signal.js';
-import { embedPassage, embedQuery, embedBatch, meanVector, EMBED_DIM } from './embed.js';
+import { embedQuery, embedBatch, meanVector, EMBED_DIM } from './embed.js';
 import { FACT_TABLES } from '../sql/schema.js';
+import { installDimensions } from '../dimensions/store-dims.js';
+import { CHUNKED_KINDS, chunk, passageIds } from '../dimensions/concepts.js';
+import { allDefs } from '../dimensions/registry.js';
+import { measurable, overlapSimilarity } from '../dimensions/profile.js';
 
 const ALL_VIS = ['private', 'family', 'school', 'staff'];
 
@@ -25,6 +29,8 @@ export class Store {
     this.ledger = null;
     this.vec = null;
     this.projections = [];   // e.g. SqlProjection; receive every applied event
+    this.onFragments = null; // optional hook(frags) after fragments are added (dimensions rescore voice)
+    this._dimsInit();
   }
 
   /** Register a projection before open(). It must expose apply(ev), applyMany(events), seq. */
@@ -42,8 +48,9 @@ export class Store {
         for (const e of s.entities) this.entities.set(e.id, e);
         for (const f of s.fragments) this._indexFragment(f);
         for (const a of s.apps || []) this.apps.set(a.slug, a);
+        this._dimsRestore(s.dims);
         from = s.seq;
-      } catch { this.entities.clear(); this.fragments.clear(); this.byEntity.clear(); }
+      } catch { this.entities.clear(); this.fragments.clear(); this.byEntity.clear(); this.dimValues = null; this._dimsInit(); }
     }
     const projFrom = Math.min(from, ...this.projections.map((p) => p.seq || 0));
     const pending = [];
@@ -56,7 +63,7 @@ export class Store {
   }
 
   snapshot() {
-    const s = { seq: this.ledger.seq, entities: [...this.entities.values()], fragments: [...this.fragments.values()], apps: [...this.apps.values()] };
+    const s = { seq: this.ledger.seq, entities: [...this.entities.values()], fragments: [...this.fragments.values()], apps: [...this.apps.values()], dims: this._dimsSnapshot() };
     fs.writeFileSync(path.join(this.dir, 'snapshot.json'), JSON.stringify(s));
   }
 
@@ -91,6 +98,7 @@ export class Store {
       }
       case 'app.upsert': this.apps.set(d.slug, d); break;
       case 'app.delete': this.apps.delete(d.slug); break;
+      case 'dim.set': case 'dim.define': case 'dim.retire': case 'dim.note': this._applyDim(ev); break;
       default: break;
     }
   }
@@ -168,11 +176,11 @@ export class Store {
     f.id = f.id || randomUUID();
     f.createdAt = new Date().toISOString();
     f.author = f.author || { id: actor, role: 'system' };
-    const vector = await embedPassage(f.text);
-    await this.vec.insert({ id: `frag:${f.id}`, vector, metadata: this._fragMeta(f) });
+    await this._embedFragments([f]);
     const ev = this.ledger.append('fragment.add', f, actor);
     this._apply(ev);
     await this._refreshEntityVector(f.entityId);
+    await this.onFragments?.([f]);
     return f;
   }
 
@@ -186,11 +194,32 @@ export class Store {
       f.author = f.author || { id: actor, role: 'system' };
       return f;
     });
-    const vectors = await embedBatch(frags.map((f) => f.text));
-    await this.vec.insertBatch(frags.map((f, i) => ({ id: `frag:${f.id}`, vector: vectors[i], metadata: this._fragMeta(f) })));
+    await this._embedFragments(frags);
     for (const f of frags) this._apply(this.ledger.append('fragment.add', f, actor));
     for (const id of new Set(frags.map((f) => f.entityId))) await this._refreshEntityVector(id);
+    await this.onFragments?.(frags);
     return frags;
+  }
+
+  /**
+   * One embedding pass for a batch. Long writing (a speech, an essay) is split
+   * into passages, each with its own vector; the fragment vector is their mean.
+   */
+  async _embedFragments(frags) {
+    const parts = frags.map((f) => (CHUNKED_KINDS.has(f.kind) ? chunk(f.text) : [f.text]));
+    const vectors = await embedBatch(parts.flat());
+    const items = [];
+    let i = 0;
+    frags.forEach((f, n) => {
+      const vs = vectors.slice(i, i + parts[n].length);
+      i += parts[n].length;
+      if (vs.length > 1) {
+        f.passages = vs.length;
+        vs.forEach((v, p) => items.push({ id: `pass:${f.id}:${p}`, vector: v, metadata: { ...this._fragMeta(f), passage: p } }));
+      }
+      items.push({ id: `frag:${f.id}`, vector: vs.length > 1 ? meanVector(vs) : vs[0], metadata: this._fragMeta(f) });
+    });
+    await this.vec.insertBatch(items);
   }
 
   _fragMeta(f) {
@@ -202,6 +231,8 @@ export class Store {
     const f = this.fragments.get(id);
     if (!f) return false;
     await this.vec.delete(`frag:${id}`);
+    if (f.passages > 1) for (const pid of passageIds(f)) { await this.vec.delete(pid); this._vecCache?.delete(pid); }
+    this._vecCache?.delete(`frag:${id}`);
     const ev = this.ledger.append('fragment.remove', { id }, actor);
     this._apply(ev);
     await this._refreshEntityVector(f.entityId);
@@ -247,6 +278,7 @@ export class Store {
     for (const r of raw) {
       const m = r.metadata || {};
       if (m.isEntity) continue;
+      if (m.passage == null && this.fragments.get(m.fragmentId)?.passages > 1) continue; // its passages speak for it
       if (!allow.has(m.visibility)) continue;
       if (entityType && m.entityType !== entityType) continue;
       if (schoolId && m.schoolId !== schoolId) continue;
@@ -257,15 +289,28 @@ export class Store {
       if (!groups.has(m.entityId)) groups.set(m.entityId, { entity: this.entities.get(m.entityId), score, fragments: [] });
       const g = groups.get(m.entityId);
       g.score = Math.max(g.score, score);
-      g.fragments.push({ ...f, score });
+      const match = m.passage != null ? chunk(f.text)[m.passage] : null;
+      const seen = g.fragments.find((x) => x.id === f.id);
+      if (seen) { if (score > seen.score) Object.assign(seen, { score, match }); } else g.fragments.push({ ...f, score, match });
     }
     return [...groups.values()].filter((g) => g.entity).sort((a, b) => b.score - a.score).slice(0, k);
   }
 
-  /** Nearest entities in either vector space. space: 'signal' | 'semantic' */
+  /** Nearest entities. space: 'signal' (15 core) | 'semantic' (their words) | 'dimensions' (every shared dimension) */
   async similar(entityId, { k = 10, space = 'signal', sameType = true } = {}) {
     const e = this.entities.get(entityId);
     if (!e) return [];
+    if (space === 'dimensions') {
+      const defs = allDefs(this.dimDefs);
+      const me = measurable(defs, this.dimensionRecords(entityId));
+      const out = [];
+      for (const o of this.entities.values()) {
+        if (o.id === e.id || (sameType && o.type !== e.type)) continue;
+        const r = overlapSimilarity(me, measurable(defs, this.dimensionRecords(o.id)));
+        if (r) out.push({ entity: o, score: r.score, shared: r.shared });
+      }
+      return out.sort((a, b) => b.score - a.score).slice(0, k);
+    }
     if (space === 'semantic') {
       const me = await this.vec.get(`entity:${entityId}`);
       if (!me?.vector) return [];
@@ -358,3 +403,5 @@ export class Store {
     return true;
   }
 }
+
+installDimensions(Store);

@@ -35,7 +35,7 @@ const GUIDES = {
     navigate: 'Click a child to open their record. Add a note or a photo from their page.',
   },
   person: {
-    layout: 'Header with name and school, then flags phrased as questions, the radar of 15 signals, the metrics table, similar students, the timeline, and the record: fragments, attendance, incidents, plans, services, documents.',
+    layout: 'Header with name and school, then flags phrased as questions, the radar of the 15 core signals, the metrics table, every dimension (a fingerprint, completeness by family, what would fill the gaps, and each value with its source), similar students, the timeline, and the record: fragments, attendance, incidents, plans, services, documents.',
     exists: 'The structured record from imports plus the voice: what staff observed, what the student wrote, what the family added. Each fragment shows who can see it.',
     navigate: 'Add a fragment at the bottom. Switch similar-students tabs between the signal space and what people wrote. Records tab shows the rows behind the numbers.',
     admin: { navigate: 'Add an observation or a staff-only note at the bottom. Add buttons in Records write immunizations, documents, plans and enrollment events. Edit the structured record from the metrics table.' },

@@ -166,7 +166,7 @@ async function similar(args, scope, store) {
   const id = str(args.id, 'id', 64);
   if (!id) throw new HttpError(400, 'id required');
   if (!visible(scope, id)) throw new HttpError(404, 'no such person in this app’s scope');
-  const rows = await store.similar(id, { k: int(args.k, 'k', 1, 50, 10), space: oneOf(args.space, 'space', ['signal', 'semantic']) || 'signal' });
+  const rows = await store.similar(id, { k: int(args.k, 'k', 1, 50, 10), space: oneOf(args.space, 'space', ['signal', 'semantic', 'dimensions']) || 'signal' });
   const kept = rows.filter((r) => r.entity && visible(scope, r.entity.id));
   return { similar: kept.map((r) => ({ score: +r.score.toFixed(4), person: projectEntity(scope, r.entity) })), suppressed: rows.length - kept.length };
 }
