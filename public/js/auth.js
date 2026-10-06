@@ -2,9 +2,9 @@
 import { api, h, render, status, refreshUser, state } from '/app.js';
 
 export async function show() {
-  let bootstrapped = true;
-  try { ({ bootstrapped } = await api('/api/auth/status')); } catch { /* server not ready */ }
-  render(bootstrapped ? signInCard() : bootstrapCard());
+  let bootstrapped = true, demo = null;
+  try { ({ bootstrapped, demo } = await api('/api/auth/status')); } catch { /* server not ready */ }
+  render(bootstrapped ? signInCard(demo) : bootstrapCard());
   document.querySelector('#view input')?.focus();
 }
 
@@ -16,7 +16,7 @@ function shell(title, lede, ...kids) {
   );
 }
 
-function signInCard() {
+function signInCard(demo) {
   const err = h('p.err', { role: 'alert' });
   const form = h('form', { onsubmit: onSubmit },
     field('Username', h('input', { type: 'text', id: 'u', name: 'username', autocomplete: 'username', required: true })),
@@ -41,7 +41,37 @@ function signInCard() {
       btn.disabled = false;
     }
   }
+  if (demo?.logins?.length) return demoShell(demo, form);
   return shell('Sign in', 'Students, families, teachers and administrators each see a different slice of the same record.', form);
+}
+
+/** The public demo: a tour button and one-click sign-in for each role. */
+function demoShell(demo, form) {
+  const err = h('p.err', { role: 'alert' });
+  async function enter(l, tour) {
+    err.textContent = '';
+    try {
+      await api('/api/auth/login', { method: 'POST', body: { username: l.username, password: l.password } });
+      await refreshUser();
+      window.location.hash = '#/' + (l.role === 'student' ? 'me' : l.role === 'family' ? 'mine' : '');
+      const { boot } = await import('/app.js');
+      await boot();
+      if (tour) (await import('/js/tour.js')).start();
+    } catch (ex) { err.textContent = ex.message; }
+  }
+  const admin = demo.logins.find((l) => l.role === 'admin');
+  return h('div.centered',
+    h('div.row', { style: 'gap:10px;margin-bottom:18px' }, h('span.mark', { style: 'width:22px;height:22px' }), h('span', { style: 'font-size:1.3rem;font-weight:650' }, 'Dimensional SIS')),
+    h('div.card',
+      h('h1', 'See every dimension of a student'),
+      h('p.lede', 'A free, open-source student information system. This public demo is a made-up district of 850 synthetic students; no real child is here.'),
+      admin ? h('button.btn', { style: 'width:100%;margin:6px 0 14px', onclick: () => enter(admin, true) }, 'Take the five-minute guided tour') : null,
+      h('p.small.muted', { style: 'margin:0 0 8px' }, 'Or look around as:'),
+      h('div.row', { style: 'gap:8px' }, demo.logins.map((l) => h('button.btn.ghost', { onclick: () => enter(l, false) }, l.label))),
+      err,
+      h('details', { style: 'margin-top:16px' }, h('summary.small', 'Sign in with a username'), h('div', { style: 'margin-top:10px' }, form))),
+    h('p.small.muted', { style: 'margin-top:14px' }, 'In a real installation this runs on the school’s own machine, and records never leave the building. Some actions (accounts, deletes, imports, photos) are turned off in this public demo. Source: github.com/kmasterfleek/dimensional-sis'),
+  );
 }
 
 function bootstrapCard() {

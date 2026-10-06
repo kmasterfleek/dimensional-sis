@@ -5,7 +5,7 @@ import { loadEdition, edition, feature, t } from '/js/edition.js';
 
 import { guideCard } from '/js/guide.js';
 
-export const state = { user: null, scope: null, schema: null, ready: false, route: 'home' };
+export const state = { user: null, scope: null, schema: null, ready: false, route: 'home', demo: null };
 export { edition, feature, t };
 
 // ---------- DOM ----------
@@ -176,6 +176,7 @@ async function route() {
     const mod = await r.load();
     if (mine !== token) return;
     await (mod[r.fn || 'show'] || mod.show)({ args, query });
+    window.dispatchEvent(new Event('dsis:rendered'));
   } catch (e) {
     if (mine !== token) return;
     if (e.status === 401) { state.user = null; (await import('/js/auth.js')).show(); return; }
@@ -198,6 +199,7 @@ export function chrome() {
   if (!signedIn) return;
   const nav = clear(document.getElementById('mainnav'));
   for (const r of ROUTES.filter(allowed)) nav.appendChild(h('a', { href: '#/' + r.path }, t(r.nav)));
+  if (state.demo && state.user.role === 'admin') nav.appendChild(h('button.linkish.navtour', { onclick: async () => (await import('/js/tour.js')).start() }, t('Take the tour')));
   document.getElementById('whoami').textContent = `${state.user.displayName || state.user.username} · ${state.user.role}`;
 }
 
@@ -209,6 +211,7 @@ export async function refreshUser() {
     state.scope = me.scope;
   } catch { state.user = null; state.scope = null; }
   if (state.user && !state.schema) { try { state.schema = await api('/api/schema'); } catch { /* optional */ } }
+  try { state.demo = (await api('/api/auth/status')).demo || null; } catch { state.demo = null; }
   chrome();
 }
 
@@ -216,6 +219,7 @@ export async function boot() {
   await loadEdition();
   await refreshUser();
   await route();
+  if (state.demo && state.user) (await import('/js/tour.js')).resume();
 }
 
 window.addEventListener('hashchange', route);

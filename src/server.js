@@ -13,6 +13,22 @@ import { SqlProjection } from './sql/projection.js';
 import { Store } from './core/store.js';
 import { Auth } from './core/auth.js';
 import { getEmbedder } from './core/embed.js';
+import { HttpError } from './api/router.js';
+
+/**
+ * A public demo publishes its passwords, so it turns off what a stranger could
+ * use to lock others out, erase records or post images: accounts, invites,
+ * deletes, imports, photo uploads and place-data replacement.
+ */
+export const DEMO = process.env.LIBREA_DEMO === '1';
+const DEMO_BLOCKED = [
+  ['POST', '/api/users'], ['PUT', '/api/users/:username'], ['POST', '/api/auth/bootstrap'],
+  ['POST', '/api/invites'], ['POST', '/api/invites/:code/revoke'], ['POST', '/api/invites/redeem'],
+  ['DELETE', '/api/people/:id'], ['DELETE', '/api/apps/:slug'], ['DELETE', '/api/dimensions/concepts/:key'],
+  ['POST', '/api/import/apply'], ['POST', '/api/facts/:table/delete'], ['POST', '/api/dimensions/places'],
+  ['POST', '/api/people/:id/photo'], ['POST', '/api/sql/rebuild'],
+];
+const demoBlocked = (method, pattern) => DEMO && DEMO_BLOCKED.some(([m, p]) => m === method && p === pattern);
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(here, '..');
@@ -28,7 +44,10 @@ export async function createApp({ dataDir = process.env.LIBREA_DATA || path.join
   const origHandle = router.handle.bind(router);
   router.handle = (req, res) => origHandle(req, res);
   const origAdd = router.add.bind(router);
-  router.add = (method, pattern, handler) => origAdd(method, pattern, (ctx) => { withUser(ctx); return handler(ctx); });
+  router.add = (method, pattern, handler) => origAdd(method, pattern, (ctx) => {
+    if (demoBlocked(method, pattern)) throw new HttpError(403, 'Turned off in the public demo.');
+    withUser(ctx); return handler(ctx);
+  });
 
   registerCore(router, { store, auth, dataDir });
   registerExport(router, { store });

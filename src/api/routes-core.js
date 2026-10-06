@@ -7,12 +7,22 @@ import { SESSION_COOKIE, requireUser, requireRole, canSeeEntity, projectEntity }
 import { DIMENSIONS, FRAGMENT_KINDS, VISIBILITY, STUDENT_METRICS, ENTITY_TYPES } from '../core/schema.js';
 
 const IMG = { 'image/png': '.png', 'image/jpeg': '.jpg', 'image/webp': '.webp' };
+const DEMO_LOGINS = [
+  { username: 'admin', password: 'librea-admin', role: 'admin', label: 'District administrator' },
+  { username: 'teacher.0', password: 'librea-staff', role: 'staff', label: 'Teacher' },
+  { username: 'stu-0001', password: 'librea-student', role: 'student', label: 'Student' },
+  { username: 'family.stu-0001', password: 'librea-family', role: 'family', label: 'Family' },
+];
 
 export function registerCore(router, { store, auth, dataDir }) {
   const mediaDir = path.join(dataDir, 'media');
 
   // ---- auth ----
-  router.get('/api/auth/status', () => ({ bootstrapped: auth.bootstrapped }));
+  // In a public demo (LIBREA_DEMO=1) the sign-in page offers the demo accounts.
+  router.get('/api/auth/status', () => ({
+    bootstrapped: auth.bootstrapped,
+    ...(process.env.LIBREA_DEMO === '1' ? { demo: { logins: DEMO_LOGINS.filter((l) => auth.users.has(l.username)) } } : {}),
+  }));
   router.post('/api/auth/bootstrap', (ctx) => {
     if (auth.bootstrapped) throw new HttpError(409, 'already bootstrapped');
     const u = auth.createUser({ ...ctx.body, role: 'admin' });

@@ -248,3 +248,11 @@ h4 { font-size: .88rem; margin: 1em 0 .3em; color: var(--ink-soft); }
   .dimrow .dimsrc { grid-column: 1 / -1; order: 4; }
   .unlock { flex-direction: column; align-items: flex-start; }
 }
+/* Guided tour (public demo) */
+.tour { position: fixed; right: 18px; bottom: 18px; z-index: 50; width: min(380px, calc(100vw - 32px)); background: var(--card); border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: 14px; box-shadow: 0 10px 40px rgba(0,0,0,.25); padding: 14px 16px 16px; }
+.tour h3 { margin: 6px 0 6px; }
+.tour p { margin: 0 0 12px; font-size: .92rem; line-height: 1.5; }
+.tour-glow { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 8px; animation: tourpulse 1.6s ease-in-out 3; }
+@keyframes tourpulse { 50% { outline-color: transparent; } }
+.navtour { margin-left: 6px; font-weight: 600; }
+@media (max-width: 640px) { .tour { left: 16px; right: 16px; bottom: 12px; width: auto; } }
