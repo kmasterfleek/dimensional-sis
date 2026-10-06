@@ -8,7 +8,7 @@
 - **Microschools, learning pods, co-ops and community schools** that have no SIS at all, just paperwork. Go to [microschools and learning pods](#for-microschools-and-learning-pods).
 - **Alternative schools** (continuation, credit recovery, independent study, charters, therapeutic programs), whose students the standard SIS reads worst. Go to [alternative schools](#for-alternative-schools).
 
-You can see it working in a public demo with made-up students, with a five-minute guided tour: **https://dimensional-sis-production.up.railway.app**
+You can see it working in a public demo with made-up students, with a five-minute guided tour: **https://dimensionalsis.generativeducation.com**
 
 ## The problem you already know
 
