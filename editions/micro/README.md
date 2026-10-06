@@ -99,7 +99,7 @@ an ordinary Tuesday, without a scramble. Dimensional SIS Micro keeps a checklist
 - **Enrollment paperwork, consents, residency** — held per learner, with status
   `on-file`, `missing`, `expired`, or `waived`.
 
-Two honest caveats. **Requirements vary enormously by state**, and some states
+Two caveats. **Requirements vary enormously by state**, and some states
 ask a microschool for almost nothing while others treat it as a private school
 with real filings. **This is a tool for keeping your own house in order, not
 legal advice.** Find out what your state asks, then use this to stay on top of
@@ -152,7 +152,7 @@ you on screen when a provider is involved.
 
 ## The four starter apps
 
-The seed installs these; they also work on an empty pod, degrading to an honest
+The seed installs these; they also work on an empty pod, degrading to a plain
 empty state.
 
 | App | What it's for |
