@@ -1,3 +1,6 @@
+<img width="1078" height="367" alt="Screenshot 2026-10-14 at 7 57 14 AM" src="https://github.com/user-attachments/assets/59753de8-c15b-4b9e-ae31-63c1e7e00589" />
+
+
 # Dimensional SIS
 
 **A free, open-source student information system that sees the whole child, and keeps every student's data on your school's own machines.**
