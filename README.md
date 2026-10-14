@@ -21,7 +21,7 @@ Ask it for anything new and the answer is always the same. You might want a way 
 
 So we work around it. The real knowledge of who a child is lives in the people in the building: the counselor who remembers, the teacher who noticed, the office manager who knows the family. We keep it in spreadsheets, sticky notes and hallway conversations, and we do the best we can. When those people leave, the knowledge leaves with them.
 
-**You don't have to live like this anymore.** Three things have changed:
+## **You don't have to live like this anymore.** Three things have changed:
 
 - **AI can now build the tools you need.** A staff member describes a dashboard or a page in a sentence, and it's built on your own data, the same day.
 - **AI can now read for meaning.** It can understand what students and families write, not just count it, and do so on a computer in your own building.
